@@ -6,6 +6,7 @@
   "scripts": {
     "astro:dev": "pnpm --filter astro-app dev",
     "sanity:dev": "pnpm --filter sanity-app dev",
+    "astro:build": "pnpm --filter astro-app build",
     "dev": "concurrently \"pnpm astro:dev\" \"pnpm sanity:dev\""
   },
   "keywords": [],

@@ -1,9 +1,10 @@
-import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemas'
+import { defineConfig } from '@sanity-typed/types';
+import type { InferSchemaValues } from '@sanity-typed/types';
 
-export default defineConfig({
+const config = defineConfig({
   name: 'default',
   title: 'genesisriv-tree',
 
@@ -16,3 +17,8 @@ export default defineConfig({
     types: schemaTypes,
   },
 })
+
+export default config;
+
+/** Typescript type of all types! */
+export type SanityValues = InferSchemaValues<typeof config>;
