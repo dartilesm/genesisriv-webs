@@ -6,8 +6,8 @@ import type { InferSchemaValues } from '@sanity-typed/types';
 
 const config = defineConfig({
   name: 'default',
-  title: 'genesisriv-tree',
-
+  title: 'Centro de Links - Genesis Rivero - Sanity.io',
+  
   projectId: 'l2ne4htk',
   dataset: 'production',
 
