@@ -12,12 +12,13 @@ const image = data?.photo && builder.image(data.photo);
 ---
 
 <RootLayout>
-	
-	<img src={image?.url()} alt="img">
-	<h1>{data.name}</h1>
-	<p>{data.role}</p>
-	<p>{data.description}</p>
-	{
-		data.links.map(link => (<Button as="a" href={link.url}>{link.name}</Button>))
-	}
+	<img src={image?.url()} alt="img" class="w-52 h-52 rounded-full object-cover">
+	<h1 class="text-lg font-bold">{data.name}</h1>
+	<p class="text-base">{data.role}</p>
+	<p class="text-sm text-center">{data.description}</p>
+	<div class="flex flex-col gap-1 w-full">
+		{
+			data.links.map(link => (<Button as="a" href={link.url} target="_blank">{link.name}</Button>))
+		}
+	</div>
 </RootLayout>
