@@ -13,6 +13,7 @@ importers:
       '@astrojs/react': ^2.3.2
       '@astrojs/tailwind': ^4.0.0
       '@astrojs/vercel': ^3.8.2
+      '@fontsource/poppins': ^5.0.8
       '@sanity/astro': ^1.0.1
       '@sanity/client': ^6.4.9
       '@sanity/image-url': ^1.0.2
@@ -32,6 +33,7 @@ importers:
       '@astrojs/react': 2.3.2_gltvt74xzh7f5lvw2hzxriz5bu
       '@astrojs/tailwind': 4.0.0_omhaa24rfgsa5s4opdeaewehte
       '@astrojs/vercel': 3.8.2_astro@2.10.12+react@18.2.0
+      '@fontsource/poppins': 5.0.8
       '@sanity/astro': 1.0.1
       '@sanity/client': 6.4.9
       '@sanity/image-url': 1.0.2
@@ -2121,6 +2123,10 @@ packages:
 
   /@floating-ui/utils/0.1.1:
     resolution: {integrity: sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==}
+    dev: false
+
+  /@fontsource/poppins/5.0.8:
+    resolution: {integrity: sha512-P8owfYWluoUY5Nyzk4gT/L6LmLmseP6ezFWhj6VBUa5pRIdnCvNJpoQ6i/vhekjtJOfqX6nKlB+LCttoUl2GQQ==}
     dev: false
 
   /@humanwhocodes/config-array/0.11.10:

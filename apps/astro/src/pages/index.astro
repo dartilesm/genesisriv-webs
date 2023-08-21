@@ -12,17 +12,40 @@ function getImageUrl(source) {
 	return builder.image(source);
 }
 
+data.iconLinks.links?.forEach(icon => {
+	console.log(getImageUrl(icon).url())
+});
+
 ---
 
-<RootLayout>
-	<img src={getImageUrl(data.photo)?.url()} alt={data.photo.alt} class="w-52 h-52 rounded-full object-cover">
-	<h1 class="text-lg font-bold">{data.name}</h1>
-	<p class="text-base">{data.role}</p>
-	<p class="text-sm text-center">{data.description}</p>
-	<div class="flex flex-col gap-1 w-full">
-		{
-			data.links.map(link => (<Button as="a" href={link.url} aria-label={link.ariaLabel} target="_blank">{link.name}</Button>))
-		}
+<RootLayout className="flex justify-center items-center flex-col gap-6 text-white">
+	<div class="flex flex-col gap-8 justify-center items-center">
+		<img src={getImageUrl(data.photo)?.url()} alt={data.photo.alt} class="w-52 h-52 rounded-full object-cover">
+		<div class="flex flex-col gap-2 text-center">
+			<h1 class="text-lg font-bold">{data.name}</h1>
+			<p class="text-base">{data.role}</p>
+			<p class="text-sm text-center font-light">{data.description}</p>
+		</div>
 	</div>
-	<p>{data.iconLinks?.title}</p>
+	<div class="flex flex-col gap-12 w-full text-center">
+		<div class="flex flex-col gap-1 w-full">
+			{
+				data.links.map(link => (<Button as="a" href={link.url} aria-label={link.ariaLabel} target="_blank">{link.name}</Button>))
+			}
+		</div>
+		<div class="flex flex-col gap-4">
+			<p>{data.iconLinks?.title}</p>
+			<div class="flex flex-row gap-4 justify-center">
+				{
+					data.iconLinks.links.map(icon => {
+						return <a href={icon.url} aria-label={icon.ariaLabel} target="_blank">
+							<svg width="24" height="24">       
+								<image xlink:href={getImageUrl(icon).url()} src={getImageUrl(icon).url()} width="24" height="24"/>    
+							</svg>	
+						</a>
+					})
+				}
+			</div>
+		</div>
+	</div>
 </RootLayout>

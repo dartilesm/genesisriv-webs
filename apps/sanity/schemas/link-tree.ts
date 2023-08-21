@@ -91,9 +91,9 @@ const linkTree: DocumentDefinition = {
               validation: Rule => Rule.required(),
               fields: [
                 {
-                  name: 'alt',
+                  name: 'ariaLabel',
                   type: 'string',
-                  title: 'Alt Text',
+                  title: 'Aria Label',
                   validation: Rule => Rule.required()
                 },
                 {
