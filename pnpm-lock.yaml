@@ -52,6 +52,7 @@ importers:
   apps/sanity:
     specifiers:
       '@sanity/eslint-config-studio': ^3.0.0
+      '@sanity/schema': ^3.15.1
       '@sanity/vision': ^3.15.1
       '@types/react': ^18.0.25
       '@types/styled-components': ^5.1.26
@@ -72,6 +73,7 @@ importers:
       styled-components: 5.3.11_l266yphwesgudam3x3r2tm6dce
     devDependencies:
       '@sanity/eslint-config-studio': 3.0.0_2voyjndugpfz33zwqvnblpgcve
+      '@sanity/schema': 3.15.1
       '@types/react': 18.2.20
       '@types/styled-components': 5.1.26
       eslint: 8.47.0
