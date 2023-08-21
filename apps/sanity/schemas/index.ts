@@ -1,1 +1,3 @@
-export const schemaTypes = []
+import linkTree from './link-tree';
+
+export const schemaTypes = [linkTree]

@@ -1,9 +1,23 @@
 ---
+import { useSanityClient } from "@sanity/astro";
 import RootLayout from '@layouts/root-layout.astro'
 import Button from '@components/button'
+import imageUrlBuilder from '@sanity/image-url'
+
+const [data] = await useSanityClient().fetch(`*[_type == "linkTree"]`);
+
+const builder = imageUrlBuilder(useSanityClient());
+
+const image = data?.photo && builder.image(data.photo);
 ---
 
 <RootLayout>
-	<img src="https://i.pravatar.cc/150?img=3" alt="img">
-	<Button as="a">Página web</Button>
+	
+	<img src={image?.url()} alt="img">
+	<h1>{data.name}</h1>
+	<p>{data.role}</p>
+	<p>{data.description}</p>
+	{
+		data.links.map(link => (<Button as="a" href={link.url}>{link.name}</Button>))
+	}
 </RootLayout>
