@@ -1,5 +1,6 @@
 import { defineArrayMember, defineField, defineType } from "@sanity-typed/types";
 
+
 const linkTree = defineType({
   name: 'linkTree',
   type: 'document',
@@ -17,7 +18,7 @@ const linkTree = defineType({
           name: 'alt',
           type: 'string',
           title: 'Alt Text',
-          validation: <T>(Rule: { required: () => T; }) => Rule.required()
+          validation: (Rule) => Rule.required()
         })
       ]
     }),
@@ -50,19 +51,21 @@ const linkTree = defineType({
               name: 'name',
               type: 'string',
               title: 'Name',
-              validation: <T>(Rule: { required: () => T; }) => Rule.required()
+              validation: (Rule) => Rule.required()
             }),
             defineField({
               name: 'url',
               type: 'url',
               title: 'URL',
-              validation: <T>(Rule: { required: () => T; }) => Rule.required()
+              validation: (Rule) => Rule.uri({
+                scheme: ['http', 'https', 'mailto', 'tel'],
+              }).required()
             }),
             defineField({
               name: 'ariaLabel',
               type: 'string',
               title: 'Aria Label',
-              validation: <T>(Rule: { required: () => T; }) => Rule.required()
+              validation: (Rule) => Rule.required()
             })
           ]
         })
@@ -77,7 +80,7 @@ const linkTree = defineType({
           name: 'title',
           type: 'string',
           title: 'Title',
-          validation: <T>(Rule: { required: () => T; }) => Rule.required()
+          validation: (Rule) => Rule.required()
         }),
         defineField({
           name: 'links',
@@ -88,19 +91,19 @@ const linkTree = defineType({
               name: 'icon',
               type: 'image',
               title: 'Icon',
-              validation: <T>(Rule: { required: () => T; }) => Rule.required(),
+              validation: (Rule) => Rule.required(),
               fields: [
                 defineField({
                   name: 'ariaLabel',
                   type: 'string',
                   title: 'Aria Label',
-                  validation: <T>(Rule: { required: () => T; }) => Rule.required()
+                  validation: (Rule) => Rule.required()
                 }),
                 defineField({
                   name: 'url',
                   type: 'url',
                   title: 'URL',
-                  validation: <T>(Rule: { required: () => T; }) => Rule.required()
+                  validation: (Rule) => Rule.required()
                 })
               ]
             }),
