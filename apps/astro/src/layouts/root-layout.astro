@@ -43,7 +43,7 @@ const { className, metadata } = Astro.props as { className: string; metadata: Sa
   </head>
   <body class="p-4 sm:p-2 flex justify-center items-center m-auto h-screen max-w-full w-screen w-[100dvw]">
     <main class=`w-full max-w-[456px] ${className}`>
-      <picture class="fixed top-0 left-0 w-screen h-screen -z-10">
+      <picture class="fixed top-0 left-0 w-screen h-screen -z-10 dark:invert">
         <!-- Add image source for portrait orientation -->
         <source media="(orientation: portrait)" srcset={MobileBgImage.src} />
         <!-- Add image source for landscape orientation -->

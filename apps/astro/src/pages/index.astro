@@ -11,8 +11,7 @@ const [siteMetaData] = await useSanityClient().fetch<SanityValues['metadata'][]>
 
 ---
 
-<RootLayout className="flex justify-center items-center flex-col gap-6 text-[#222730]" metadata={siteMetaData}>
-	
+<RootLayout className="flex justify-center items-center flex-col gap-6 text-[#222730] dark:text-gray-200" metadata={siteMetaData}>
 	<div class="flex flex-col gap-8 justify-center items-center">
 		<img src={sanitizeImage(siteData?.photo as SanityImageSource).forceDownload('profile-img').url()} alt={siteData?.photo?.alt} class="w-52 h-52 rounded-full object-cover">
 		<div class="flex flex-col gap-2 text-center">
@@ -32,7 +31,7 @@ const [siteMetaData] = await useSanityClient().fetch<SanityValues['metadata'][]>
 			<div class="flex flex-row gap-4 justify-center">
 				{
 					siteData?.iconLinks?.links?.map(icon => {
-						return <a href={icon.url} aria-label={icon.ariaLabel} target="_blank">
+						return <a href={icon.url} aria-label={icon.ariaLabel} target="_blank" class="focus:outline-4 focus:outline-offset-4 focus:outline-[#D9BCFE]">
 							<svg width="24" height="24">       
 								<image xlink:href={sanitizeImage(icon).url()} width="24" height="24"/>    
 							</svg>	
