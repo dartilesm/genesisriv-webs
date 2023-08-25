@@ -41,7 +41,7 @@ const { className, metadata } = Astro.props as { className: string; metadata: Sa
     <!-- Favicon -->
     <link rel="icon" href={sanitizeImage(metadata.favicon).size(32, 32).url()} type="image/x-icon" />
 
-    <script defer data-domain="genesisriv.link" src="/stats/js/script.js" data-api="/stats/api/event"></script>
+    <script defer data-domain="genesisriv.link" src="/stats/js/script.outbound-links.js" data-api="/stats/api/event"></script>
   </head>
   <body class="p-4 sm:p-2 flex justify-center items-center m-auto h-screen max-w-full w-screen w-[100dvw]">
     <main class=`w-full max-w-[456px] ${className}`>
