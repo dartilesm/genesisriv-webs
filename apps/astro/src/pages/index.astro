@@ -11,7 +11,8 @@ const [siteMetaData] = await useSanityClient().fetch<SanityValues['metadata'][]>
 
 ---
 
-<RootLayout className="flex justify-center items-center flex-col gap-6 text-white" metadata={siteMetaData}>
+<RootLayout className="flex justify-center items-center flex-col gap-6 text-[#222730]" metadata={siteMetaData}>
+	
 	<div class="flex flex-col gap-8 justify-center items-center">
 		<img src={sanitizeImage(siteData?.photo as SanityImageSource).forceDownload('profile-img').url()} alt={siteData?.photo?.alt} class="w-52 h-52 rounded-full object-cover">
 		<div class="flex flex-col gap-2 text-center">

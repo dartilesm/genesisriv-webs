@@ -3,6 +3,10 @@ import '@fontsource/poppins';
 import type { SanityValues } from "@sanity-app/sanity.config"
 import sanitizeImage from '@utils/sanitize-image';
 
+import { Image } from 'astro:assets';
+import MobileBgImage from '@assets/bg-mobile.png';
+import DesktopBgImage from '@assets/bg-desktop.png';
+
 const { className, metadata } = Astro.props as { className: string; metadata: SanityValues['metadata'] };
 ---
 <style>
@@ -37,9 +41,17 @@ const { className, metadata } = Astro.props as { className: string; metadata: Sa
     <!-- Favicon -->
     <link rel="icon" href={sanitizeImage(metadata.favicon).size(32, 32).url()} type="image/x-icon" />
   </head>
-  <body class="p-4 sm:p-2 flex justify-center items-center m-auto h-screen w-screen w-[100dvh] bg-gradient-to-b from-[#4D60FF] to-[#FB4DFF]">
+  <body class="p-4 sm:p-2 flex justify-center items-center m-auto h-screen max-w-full w-screen w-[100dvw]">
     <main class=`w-full max-w-[456px] ${className}`>
-        <slot />
+      <picture class="fixed top-0 left-0 w-screen h-screen -z-10">
+        <!-- Add image source for portrait orientation -->
+        <source media="(orientation: portrait)" srcset={MobileBgImage.src} />
+        <!-- Add image source for landscape orientation -->
+        <source media="(orientation: landscape)" srcset={DesktopBgImage.src} />
+        <!-- Add fallback image for browsers that don't support picture element -->
+        <Image src={MobileBgImage} alt="Background Image" class="w-full h-full object-cover" />
+      </picture>
+        <slot class="z-10"/>
     </main>
   </body>
 </html>
