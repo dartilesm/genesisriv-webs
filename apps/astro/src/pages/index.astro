@@ -1,10 +1,10 @@
 ---
-import Button from '@components/button';
-import RootLayout from '@layouts/root-layout.astro';
+import Button from '@/components/button';
+import RootLayout from '@/layouts/root-layout.astro';
 import type { SanityValues } from "@sanity-app/sanity.config";
 import { useSanityClient } from "@sanity/astro";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import sanitizeImage from '@utils/sanitize-image';
+import sanitizeImage from '@/utils/sanitize-image';
 
 const [siteData] = await useSanityClient().fetch<SanityValues['linkTree'][]>(`*[_type == "linkTree"]`);
 const [siteMetaData] = await useSanityClient().fetch<SanityValues['metadata'][]>(`*[_type == "metadata"]`);

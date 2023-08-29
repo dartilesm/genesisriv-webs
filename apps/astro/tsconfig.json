@@ -6,13 +6,12 @@
     "baseUrl": ".",
     "isolatedModules": true,
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@pages/*": ["src/pages/*"],
-      "@styles/*": ["src/styles/*"],
-      "@utils/*": ["src/utils/*"],
-      "@assets/*": ["src/assets/*"],
-      "@sanity-app/*": ["../../apps/sanity/*"],
+      "@/*": [
+        "src/*"
+      ],
+      "@sanity-app/*": [
+        "../../apps/sanity/*"
+      ],
     },
     "allowSyntheticDefaultImports": true
   }

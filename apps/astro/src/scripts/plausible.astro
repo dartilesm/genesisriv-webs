@@ -1,0 +1,16 @@
+<script
+  defer
+  data-domain='genesisriv.link'
+  src='/stats/js/script.manual.outbound-links.js'
+  data-api='/stats/api/event'></script>
+<script>
+  if (!window.plausible) {
+    // Get url object
+    const url = new URL(window.location.href);
+    // Get source query param
+    const source = url.searchParams.get("source");
+
+    // Send pageview event with source
+    plausible("pageview", { props: { source } });
+  }
+</script>

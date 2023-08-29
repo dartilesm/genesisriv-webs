@@ -1,11 +1,13 @@
 ---
 import '@fontsource/poppins';
 import type { SanityValues } from "@sanity-app/sanity.config"
-import sanitizeImage from '@utils/sanitize-image';
+import sanitizeImage from '@/utils/sanitize-image';
 
 import { Image } from 'astro:assets';
-import MobileBgImage from '@assets/bg-mobile.png';
-import DesktopBgImage from '@assets/bg-desktop.png';
+import MobileBgImage from '@/assets/bg-mobile.png';
+import DesktopBgImage from '@/assets/bg-desktop.png';
+
+import PlausibleScript from '@/scripts/plausible.astro';
 
 const { className, metadata } = Astro.props as { className: string; metadata: SanityValues['metadata'] };
 ---
@@ -41,7 +43,7 @@ const { className, metadata } = Astro.props as { className: string; metadata: Sa
     <!-- Favicon -->
     <link rel="icon" href={sanitizeImage(metadata.favicon).size(32, 32).url()} type="image/x-icon" />
 
-    <script defer data-domain="genesisriv.link" src="/stats/js/script.outbound-links.js" data-api="/stats/api/event"></script>
+    <PlausibleScript /> 
   </head>
   <body class="p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen">
     <main class=`w-full max-w-[456px] ${className} py-8`>
