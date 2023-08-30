@@ -1,11 +1,11 @@
 ---
+import sanitizeImage from "@/utils/sanitize-image";
 import "@fontsource/poppins";
 import type { SanityValues } from "@sanity-app/sanity.config";
-import sanitizeImage from "@/utils/sanitize-image";
 
-import { Image } from "astro:assets";
-import MobileBgImage from "@/assets/bg-mobile.png";
 import DesktopBgImage from "@/assets/bg-desktop.png";
+import MobileBgImage from "@/assets/bg-mobile.png";
+import { Image } from "astro:assets";
 
 import PlausibleScript from "@/scripts/plausible.astro";
 
@@ -15,14 +15,7 @@ const { className, metadata } = Astro.props as {
 };
 ---
 
-<style>
-  body {
-    font-family: "Poppins", sans-serif;
-  }
-</style>
-
-<!DOCTYPE html> 
-<html lang="es">
+<html lang='es'>
   <head>
     <meta charset='utf-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -58,7 +51,7 @@ const { className, metadata } = Astro.props as {
     <PlausibleScript />
   </head>
   <body
-    class='p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen'
+    class='p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen font-sans'
   >
     <main class=`w-full max-w-[456px] ${className} py-8`>
       <picture class='fixed top-0 left-0 w-screen h-screen -z-10 dark:invert'>
