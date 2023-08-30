@@ -1,44 +1,69 @@
 ---
-import Button from '@/components/button';
-import RootLayout from '@/layouts/root-layout.astro';
+import Button from "@/components/button";
+import RootLayout from "@/layouts/root-layout.astro";
+import sanitizeImage from "@/utils/sanitize-image";
 import type { SanityValues } from "@sanity-app/sanity.config";
 import { useSanityClient } from "@sanity/astro";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-import sanitizeImage from '@/utils/sanitize-image';
 
-const [siteData] = await useSanityClient().fetch<SanityValues['linkTree'][]>(`*[_type == "linkTree"]`);
-const [siteMetaData] = await useSanityClient().fetch<SanityValues['metadata'][]>(`*[_type == "metadata"]`);
-
+const [siteData] = await useSanityClient().fetch<SanityValues["linkTree"][]>(
+  `*[_type == "linkTree"]`
+);
+const [siteMetaData] = await useSanityClient().fetch<SanityValues["metadata"][]>(
+  `*[_type == "metadata"]`
+);
 ---
 
-<RootLayout className="flex justify-center items-center flex-col gap-6 text-[#222730] dark:text-gray-200" metadata={siteMetaData}>
-	<div class="flex flex-col gap-8 justify-center items-center">
-		<img src={sanitizeImage(siteData?.photo as SanityImageSource).forceDownload('profile-img').url()} alt={siteData?.photo?.alt} class="w-52 h-52 rounded-full object-cover">
-		<div class="flex flex-col gap-2 text-center">
-			<h1 class="text-lg font-bold">{siteData.name}</h1>
-			<h2 class="text-base">{siteData.role}</h2>
-			<p class="text-sm text-center font-light">{siteData.description}</p>
-		</div>
-	</div>
-	<div class="flex flex-col gap-12 w-full text-center">
-		<div class="flex flex-col gap-1 w-full">
-			{
-				siteData?.links?.map(link => (<Button as="a" href={link.url} aria-label={link?.ariaLabel} target="_blank">{link?.name}</Button>))
-			}
-		</div>
-		<div class="flex flex-col gap-4">
-			<p>{siteData.iconLinks?.title}</p>
-			<div class="flex flex-row gap-4 justify-center">
-				{
-					siteData?.iconLinks?.links?.map(icon => {
-						return <a href={icon.url} aria-label={icon.ariaLabel} target="_blank" class="focus:outline-4 focus:outline-offset-4 focus:outline-[#D9BCFE]">
-							<svg width="24" height="24">       
-								<image xlink:href={sanitizeImage(icon).url()} width="24" height="24"/>    
-							</svg>	
-						</a>
-					})
-				}
-			</div>
-		</div>
-	</div>
+<RootLayout
+  className='flex justify-center items-center flex-col gap-6 text-[#222730] dark:text-gray-200'
+  metadata={siteMetaData}
+>
+  <div class='flex flex-col gap-8 justify-center items-center'>
+    <img
+      src={sanitizeImage(siteData?.photo as SanityImageSource, { format: "webp" }).url()}
+      alt={siteData?.photo?.alt}
+      class='w-52 h-52 rounded-full object-cover border-[#d4b3ff] border-2'
+    />
+    <div class='flex flex-col gap-2 text-center'>
+      <h1 class='text-lg font-bold'>{siteData.name}</h1>
+      <h2 class='text-base'>{siteData.role}</h2>
+      <p class='text-sm text-center font-light'>{siteData.description}</p>
+    </div>
+  </div>
+  <div class='flex flex-col gap-12 w-full text-center'>
+    <div class='flex flex-col gap-1 w-full'>
+      {
+        siteData?.links?.map((link) => (
+          <Button as='a' href={link.url} aria-label={link?.ariaLabel} target='_blank'>
+            {link?.name}
+          </Button>
+        ))
+      }
+    </div>
+    <div class='flex flex-col gap-4'>
+      <p>{siteData.iconLinks?.title}</p>
+      <div class='flex flex-row gap-4 justify-center'>
+        {
+          siteData?.iconLinks?.links?.map((icon) => {
+            return (
+              <a
+                href={icon.url}
+                aria-label={icon.ariaLabel}
+                target='_blank'
+                class='focus:outline-4 focus:outline-offset-4 focus:outline-[#D9BCFE]'
+              >
+                <span>
+                  <img
+                    src={sanitizeImage(icon).url()}
+                    class='h-6 w-6'
+                    alt={`icon for ${icon.ariaLabel}`}
+                  />
+                </span>
+              </a>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
 </RootLayout>
