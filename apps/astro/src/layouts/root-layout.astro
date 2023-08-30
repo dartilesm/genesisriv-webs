@@ -14,7 +14,7 @@ const { className, metadata } = Astro.props as {
   metadata: SanityValues["metadata"];
 };
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const { url } = Astro;
 ---
 
 <html lang='es'>
@@ -48,7 +48,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       href={sanitizeImage(metadata.favicon, { format: "webp" }).size(32, 32).url()}
       type='image/x-icon'
     />
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={url.href} />
 
     <PlausibleScript />
   </head>
