@@ -13,6 +13,8 @@ const { className, metadata } = Astro.props as {
   className: string;
   metadata: SanityValues["metadata"];
 };
+
+const { url } = Astro;
 ---
 
 <html lang='es'>
@@ -41,12 +43,12 @@ const { className, metadata } = Astro.props as {
       content={sanitizeImage(metadata.image, { format: "webp" }).url()}
     />
 
-    <!-- Favicon -->
     <link
       rel='icon'
       href={sanitizeImage(metadata.favicon, { format: "webp" }).size(32, 32).url()}
       type='image/x-icon'
     />
+    <link rel="canonical" href={url.href} />
 
     <PlausibleScript />
   </head>
