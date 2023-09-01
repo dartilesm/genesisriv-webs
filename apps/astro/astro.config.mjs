@@ -1,4 +1,3 @@
-import react from "@astrojs/react";
 import tailwind from "@astrojs/tailwind";
 import vercel from '@astrojs/vercel/serverless';
 import sanity from "@sanity/astro";
@@ -13,7 +12,6 @@ export default defineConfig({
       apiVersion: "v2023-03-01",
       useCdn: true
     }),
-    react(),
     tailwind()
   ],
   output: "server",
