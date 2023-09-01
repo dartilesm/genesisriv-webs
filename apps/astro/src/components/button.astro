@@ -4,9 +4,11 @@ import type { HTMLTag, Polymorphic } from "astro/types";
 type Props<Tag extends HTMLTag> = Polymorphic<{ as: Tag }>;
 
 const { as: Tag, ...props } = Astro.props;
-
 ---
 
-<Tag class="inline-block text-[#4D05AB] bg-[#D4B3FF] hover:bg-[#5D10C1] hover:text-[#FEFEFE] hover:shadow-[0_4px_10px_0_rgba(53,0,122,0.20)] focus:bg-[#5D10C1] focus:outline-4 focus:outline-offset-4 focus:outline-[#EAD9FF] focus:text-[#FEFEFE] font-semibold rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full h-10" {...props}>
-    <slot />
+<Tag
+  class='inline-block text-[#4D05AB] bg-[#D4B3FF] hover:bg-[#5D10C1] hover:text-[#FEFEFE] hover:shadow-[0_4px_10px_0_rgba(53,0,122,0.20)] focus:bg-[#5D10C1] focus:outline-4 focus:outline-offset-4 focus:outline-[#EAD9FF] focus:text-[#FEFEFE] font-semibold rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-full h-10'
+  {...props}
+>
+  <slot />
 </Tag>
