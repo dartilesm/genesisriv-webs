@@ -1,17 +1,17 @@
 ---
 import sanitizeImage from "@/utils/sanitize-image";
 import "@fontsource/poppins";
-import type { SanityValues } from "@sanity-app/sanity.config";
 
 import DesktopBgImage from "@/assets/bg-desktop.png";
 import MobileBgImage from "@/assets/bg-mobile.svg";
-import { Image } from "astro:assets";
 
+import Background from "@/components/background.astro";
 import PlausibleScript from "@/scripts/plausible.astro";
+import { Metadata } from "@/types";
 
 const { className, metadata } = Astro.props as {
   className: string;
-  metadata: SanityValues["metadata"];
+  metadata: Metadata;
 };
 
 const { url } = Astro;
@@ -48,7 +48,7 @@ const { url } = Astro;
       href={sanitizeImage(metadata.favicon, { format: "webp" }).size(32, 32).url()}
       type='image/x-icon'
     />
-    <link rel="canonical" href={url.href} />
+    <link rel='canonical' href={url.href} />
 
     <PlausibleScript />
   </head>
@@ -56,14 +56,7 @@ const { url } = Astro;
     class='p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen font-sans'
   >
     <main class=`w-full max-w-[456px] ${className} py-8`>
-      <picture class='fixed top-0 left-0 w-screen h-screen -z-10 dark:invert'>
-        <!-- Add image source for portrait orientation -->
-        <source media='(orientation: portrait)' srcset={MobileBgImage.src} />
-        <!-- Add image source for landscape orientation -->
-        <source media='(orientation: landscape)' srcset={DesktopBgImage.src} />
-        <!-- Add fallback image for browsers that don't support picture element -->
-        <Image src={MobileBgImage} alt='Background Image' class='w-full h-full object-cover' />
-      </picture>
+      <Background mobileImage={MobileBgImage} desktopImage={DesktopBgImage} />
       <slot class='z-10' />
     </main>
   </body>

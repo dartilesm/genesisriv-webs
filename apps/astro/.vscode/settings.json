@@ -8,11 +8,11 @@
   ],
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": true
   },
   "editor.codeActionsOnSave": {
     "source.organizeImports": true,

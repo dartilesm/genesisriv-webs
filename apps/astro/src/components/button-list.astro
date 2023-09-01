@@ -1,0 +1,20 @@
+---
+import { LinkTree } from "@/types";
+import Button from "./button.astro";
+
+type Props = {
+  links: LinkTree["links"];
+};
+
+const { links } = Astro.props;
+---
+
+<div class='flex flex-col gap-1 w-full'>
+  {
+    links?.map((link) => (
+      <Button as='a' href={link.url} aria-label={link?.ariaLabel} target='_blank'>
+        {link?.name}
+      </Button>
+    ))
+  }
+</div>
