@@ -1,4 +1,8 @@
 ---
+import About from "../components/about.astro";
+import Background from "../components/background.astro";
+import Certificates from "../components/certificates.astro";
+import Experience from "../components/experience.astro";
 import Header from "../components/header.astro";
 import Presentation from "../components/presentation.astro";
 import Projects from "../components/projects.astro";
@@ -14,7 +18,13 @@ import Projects from "../components/projects.astro";
   </head>
   <body>
     <Header />
-    <Presentation />
-    <Projects />
+    <Background />
+    <main>
+      <Presentation />
+      <Projects />
+      <Experience />
+      <About />
+      <Certificates />
+    </main>
   </body>
 </html>
