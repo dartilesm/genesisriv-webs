@@ -1,94 +1,76 @@
+---
+import { Portfolio } from "@/types";
+import sanitizeImage from "@sanity-app/utils/sanitize-image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { PortableText } from "astro-portabletext";
+
+type Props = {
+  data: Portfolio["projects"];
+};
+
+const { data } = Astro.props;
+---
+
 <section id='portfolio' class='w-full py-12 md:py-24 lg:py-32'>
   <div class='container px-4 md:px-6 mx-auto'>
     <div class='flex flex-col items-center justify-center space-y-4 text-center'>
       <div class='space-y-2'>
-        <h2 class='text-3xl font-bold tracking-tighter sm:text-5xl'>Mis proyectos</h2>
-        <p
-          class='max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed'
-        >
-          Estos son mis proyectos destacados
-        </p>
+        <h2 class='text-3xl font-bold tracking-tighter sm:text-5xl'>{data?.title}</h2>
+        {
+          data?.description && (
+            <p class='max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed'>
+              {data?.description}
+            </p>
+          )
+        }
       </div>
     </div>
-    <div class='mx-auto max-w-5xl py-12'>
-      <!-- Project 1 -->
-      <div class='lg:flex'>
-        <div class='p-6'>
-          <img
-            src='/placeholder.svg'
-            alt='Project 1'
-            class='w-full h-64 object-cover'
-            width='200'
-            height='200'
-            style='aspect-ratio: 200 / 200; object-fit: cover;'
-          />
-        </div>
-        <div class='flex flex-col space-y-1.5 p-6'>
-          <h3 class='text-2xl font-semibold whitespace-nowrap leading-none tracking-tight'>
-            Rediseño de página web
-          </h3>
-          <p class='text-sm text-muted-foreground'>
-            Jodify
-            <br />
-            Se mejoró la web de Jodify para ofrecer una experiencia de usuario centrada en un diseño
-            atractivo y fácil de entender, brindando mayor visibilidad a eventos de música electrónica
-            para productoras y DJs, y facilitando la búsqueda y compra de entradas para los asistentes
-            a través de una cartelera intuitiva en Argentina.
-          </p>
-        </div>
-      </div>
-      <!-- Project 2 -->
-      <div class='lg:flex'>
-        <div class='p-6'>
-          <img
-            src='/placeholder.svg'
-            alt='Project 2'
-            class='w-full h-64 object-cover'
-            width='200'
-            height='200'
-            style='aspect-ratio: 200 / 200; object-fit: cover;'
-          />
-        </div>
-        <div class='flex flex-col space-y-1.5 p-6'>
-          <h3 class='text-2xl font-semibold whitespace-nowrap leading-none tracking-tight'>
-            Reconstrucción completa del página web
-          </h3>
-          <p class='text-sm text-muted-foreground'>
-            UX en Español
-            <br />
-            Rediseñé por completo la página web de UX en Español, incluyendo la página de inicio, backoffice,
-            academia, comunidad, y muchas otras secciones del sitio. Mi objetivo principal ha sido crear
-            una experiencia de usuario óptima, con un diseño moderno y atractivo, que satisfaga tanto
-            a estudiantes como a profesores.
-          </p>
-        </div>
-      </div>
-      <!-- Project 3 -->
-      <div class='lg:flex'>
-        <div class='p-6'>
-          <img
-            src='/placeholder.svg'
-            alt='Project 3'
-            class='w-full h-64 object-cover'
-            width='200'
-            height='200'
-            style='aspect-ratio: 200 / 200; object-fit: cover;'
-          />
-        </div>
-        <div class='flex flex-col space-y-1.5 p-6'>
-          <h3 class='text-2xl font-semibold whitespace-nowrap leading-none tracking-tight'>
-            Desarrollo de página web en Wix
-          </h3>
-          <p class='text-sm text-muted-foreground'>
-            Speaking of Sucess Inc
-            <br />
-            Traduje el diseño de un sitio web a la plataforma Wix. A lo largo de este proyecto, obtuve
-            información valiosa sobre los desafíos que enfrentan los desarrolladores al dar vida a nuestros
-            diseños, así como también entender las complejidades del diseño responsivo en los website
-            builders tales como Wix.
-          </p>
-        </div>
-      </div>
+    <div class='mx-auto max-w-5xl py-12 flex flex-col gap-10'>
+      {
+        data?.projectsList?.map((project) => {
+          return (
+            <div class='flex gap-10 flex-col items-center md:items-start md:flex-row'>
+              <img
+                src={sanitizeImage(project?.photo as SanityImageSource, { format: "webp" }).url()}
+                alt='Project 1'
+                class='w-full md:w-80 [aspect-ratio:16/9] object-cover rounded-lg'
+              />
+              <div>
+                <div class='flex flex-col flex-1'>
+                  <h3 class='text-2xl font-semibold whitespace-nowrap leading-none tracking-tight'>
+                    {project.projectName}
+                  </h3>
+                  <span>{project.company}</span>
+                  <PortableText class='text-sm text-muted-foreground' value={project.description} />
+                </div>
+                {project?.cta && (
+                  <a
+                    href={project.cta.url}
+                    class='inline-flex items-center text-purple-700 hover:underline gap-2'
+                  >
+                    {project.cta.label}
+                    <svg
+                      class='w-3 h-3 ms-2.5 rtl:rotate-[270deg]'
+                      aria-hidden='true'
+                      xmlns='http://www.w3.org/2000/svg'
+                      fill='none'
+                      viewBox='0 0 18 18'
+                    >
+                      <path
+                        stroke='currentColor'
+                        stroke-linecap='round'
+                        stroke-linejoin='round'
+                        stroke-width='2'
+                        d='M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778'
+                      />
+                    </svg>
+                  </a>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
     </div>
   </div>
 </section>
