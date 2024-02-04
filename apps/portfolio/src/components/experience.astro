@@ -1,6 +1,7 @@
 ---
 import { Portfolio } from "@/types";
 import { PortableText } from "astro-portabletext";
+import Subheading from "./ui/subheading.astro";
 
 type Props = {
   data: Portfolio["experience"];
@@ -13,14 +14,7 @@ const { data } = Astro.props;
   <div class='container px-4 md:px-6 mx-auto'>
     <div class='flex flex-col items-center justify-center space-y-4 text-center'>
       <div class='space-y-2'>
-        <h2 class='text-3xl font-bold tracking-tighter sm:text-5xl'>{data?.title}</h2>
-        {
-          data?.description && (
-            <p class='max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed'>
-              {data.description}
-            </p>
-          )
-        }
+        {data?.title && <Subheading title={data?.title} description={data?.description} />}
       </div>
     </div>
 
