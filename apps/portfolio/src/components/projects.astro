@@ -12,7 +12,11 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<section id='portfolio' class='w-full py-12 md:py-24 lg:py-32'>
+<section id='portfolio' class='w-full py-12 md:py-24 lg:py-32 relative'>
+  <div
+    class='absolute bg-gradient-to-b from-violet-100 to-transparent dark:from-purple-900 -z-20 h-full w-full top-0 left-0'
+  >
+  </div>
   <div class='container px-4 md:px-6 mx-auto'>
     <div class='flex flex-col items-center justify-center space-y-4 text-center'>
       <div class='space-y-2'>
@@ -30,10 +34,28 @@ const { data } = Astro.props;
                 class='w-full md:w-80 [aspect-ratio:16/9] object-cover rounded-lg'
               />
               <div>
-                <div class='flex flex-col flex-1'>
-                  <h4 class='text-2xl font-semibold dark:text-white'>{project.projectName}</h4>
-                  <span>{project.company}</span>
-                  <PortableText class='text-sm text-muted-foreground' value={project.description} />
+                <div class='flex flex-col flex-1 gap-2'>
+                  <div class='flex flex-row gap-2 items-center'>
+                    <h4 class='text-2xl font-semibold dark:text-white'>
+                      {project.projectName}
+                      <span class='text-gray-500 dark:text-gray-400'>{"-"}</span>
+                      <span class='font-semibold text-gray-500 dark:text-gray-400'>
+                        {project.company}
+                      </span>
+                    </h4>
+                  </div>
+                  <div class='flex flex-row gap-2'>
+                    <span class='bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300'>
+                      Purple
+                    </span>
+                  </div>
+
+                  {project.description && (
+                    <PortableText
+                      class='text-sm text-muted-foreground'
+                      value={project.description}
+                    />
+                  )}
                 </div>
                 {project?.cta && (
                   <a

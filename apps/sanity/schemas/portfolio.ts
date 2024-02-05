@@ -6,10 +6,75 @@ const portfolio = defineType({
   title: 'Portfolio',
   fields: [
     defineField({
+      name: 'header',
+      type: 'object',
+      title: 'Header',
+      fields: [
+        defineField({
+          name: 'logo',
+          type: 'image',
+          title: 'Logo',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alt Text',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        }),
+        defineField({
+          name: 'links',
+          type: 'array',
+          title: 'Links',
+          of: [
+            defineArrayMember({
+              name: 'link',
+              type: 'object',
+              title: 'Link',
+              fields: [
+                defineField({
+                  name: 'url',
+                  type: 'string',
+                  title: 'URL',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'label',
+                  type: 'string',
+                  title: 'Label',
+                  validation: (Rule) => Rule.required(),
+                })
+              ]
+            })
+          ],
+        }),
+      ],
+    }),
+    defineField({
       name: 'presentation',
       type: 'object',
       title: 'Presentation',
       fields: [
+        defineField({
+          name: 'profileImg',
+          type: 'image',
+          title: 'Profile Image',
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Alt Text',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        }),
         defineField({
           name: 'title',
           type: 'string',
