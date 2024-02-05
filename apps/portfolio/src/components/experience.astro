@@ -1,6 +1,7 @@
 ---
 import { Portfolio } from "@/types";
 import { PortableText } from "astro-portabletext";
+import type { TypedObject } from "astro-portabletext/types";
 import Subheading from "./ui/subheading.astro";
 
 type Props = {
@@ -36,7 +37,10 @@ const { data } = Astro.props;
               </div>
             </div>
             <div class='px-6'>
-              <PortableText class='text-gray-500' value={experience.description} />
+              <PortableText
+                class='text-gray-500'
+                value={experience.description as unknown as TypedObject}
+              />
             </div>
           </>
         ))
