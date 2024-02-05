@@ -1,0 +1,36 @@
+---
+import Heading from "@/components/ui/heading.astro";
+import type { Portfolio } from "@/types/index";
+import sanitizeImage from "@sanity-app/utils/sanitize-image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+
+type Props = {
+  data: Portfolio["presentation"];
+};
+
+const { data } = Astro.props;
+---
+
+<section
+  id='presentation'
+  class='w-full pt-12 md:pt-24 lg:pt-32 xl:pt-48 min-h-[calc(100dvh-64px)]'
+>
+  <div class='container px-4 md:px-6 mx-auto'>
+    <div class='flex flex-col items-center space-y-4 text-center'>
+      {
+        data?.profileImg && (
+          <img
+            src={sanitizeImage(data?.profileImg as SanityImageSource, { format: "webp" }).url()}
+            alt={data?.profileImg.alt}
+            class='max-w-60 [aspect-ratio:176/215] rounded-full mx-auto'
+          />
+        )
+      }
+      {
+        data?.title && (
+          <Heading title={data?.title} description={data?.description} cta={data?.cta} />
+        )
+      }
+    </div>
+  </div>
+</section>
