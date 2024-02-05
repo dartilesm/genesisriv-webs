@@ -1,0 +1,63 @@
+---
+import sanitizeImage from "@/utils/sanitize-image";
+import "@fontsource/poppins";
+
+import DesktopBgImage from "@/assets/bg-desktop.png";
+import MobileBgImage from "@/assets/bg-mobile.svg";
+
+import Background from "@/components/background.astro";
+import PlausibleScript from "@/scripts/plausible.astro";
+import { Metadata } from "@/types";
+
+const { className, metadata } = Astro.props as {
+  className: string;
+  metadata: Metadata;
+};
+
+const { url } = Astro;
+---
+
+<html lang='es'>
+  <head>
+    <meta charset='utf-8' />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <!-- SEO TAGS -->
+    <title>{metadata.title}</title>
+    <meta name='description' content={metadata.description} />
+    <meta name='keywords' content={metadata.keywords?.join(",")} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property='og:type' content='website' />
+    <meta property='og:url' content={metadata.url} />
+    <meta property='og:title' content={metadata.title} />
+    <meta property='og:description' content={metadata.description} />
+    <meta property='og:image' content={sanitizeImage(metadata.image, { format: "webp" }).url()} />
+
+    <!-- Twitter -->
+    <meta property='twitter:card' content='summary_large_image' />
+    <meta property='twitter:url' content={metadata.url} />
+    <meta property='twitter:title' content={metadata.title} />
+    <meta property='twitter:description' content={metadata.description} />
+    <meta
+      property='twitter:image'
+      content={sanitizeImage(metadata.image, { format: "webp" }).url()}
+    />
+
+    <link
+      rel='icon'
+      href={sanitizeImage(metadata.favicon, { format: "webp" }).size(32, 32).url()}
+      type='image/x-icon'
+    />
+    <link rel='canonical' href={url.href} />
+
+    <PlausibleScript />
+  </head>
+  <body
+    class='p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen font-sans'
+  >
+    <main class=`w-full max-w-[456px] ${className} py-8`>
+      <Background mobileImage={MobileBgImage} desktopImage={DesktopBgImage} />
+      <slot class='z-10' />
+    </main>
+  </body>
+</html>
