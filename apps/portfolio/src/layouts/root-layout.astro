@@ -2,16 +2,18 @@
 import "@fontsource/poppins";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 
-import Background from "@/components/background.astro";
+import Background from "@/components/background.svelte";
 import Header from "@/components/header.astro";
 import PlausibleScript from "@/scripts/plausible.astro";
-import { Metadata } from "@/types";
+import { Metadata, Portfolio } from "@/types";
 
-const { className, metadata } = Astro.props as {
+type Props = {
   className: string;
   metadata: Metadata;
+  headerData: Portfolio["header"];
 };
 
+const { className, metadata, headerData } = Astro.props;
 const { url } = Astro;
 ---
 
@@ -50,9 +52,9 @@ const { url } = Astro;
 
     <PlausibleScript />
   </head>
-  <body class='bg-white dark:bg-violet-900'>
-    <Header />
-    <Background />
+  <body class='bg-white dark:bg-gray-900 overflow-x-hidden'>
+    <Header data={headerData} />
+    <Background client:only />
     <main>
       <slot />
     </main>

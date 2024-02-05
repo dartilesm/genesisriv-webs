@@ -12,7 +12,7 @@ const [siteData] = await useSanityClient().fetch<Portfolio[]>(`*[_type == "portf
 const [, siteMetaData] = await useSanityClient().fetch<Metadata[]>(`*[_type == "metadata"]`);
 ---
 
-<RootLayout metadata={siteMetaData}>
+<RootLayout metadata={siteMetaData} headerData={siteData.header}>
   <Presentation data={siteData.presentation} />
   <Projects data={siteData.projects} />
   <Experience data={siteData.experience} />
