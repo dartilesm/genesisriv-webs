@@ -152,6 +152,16 @@ const portfolio = defineType({
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
+                  name: 'technologiesOrMethodologies',
+                  type: 'array',
+                  title: 'Technologies or Methodologies',
+                  of: [
+                    defineArrayMember({
+                      type: 'string',
+                    })
+                  ]
+                }),
+                defineField({
                   name: 'description',
                   type: 'array',
                   title: 'Description',
@@ -233,6 +243,12 @@ const portfolio = defineType({
                   name: 'role',
                   type: 'string',
                   title: 'Role',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'time',
+                  type: 'string',
+                  title: 'Time',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
