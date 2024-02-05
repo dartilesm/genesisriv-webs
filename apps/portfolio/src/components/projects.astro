@@ -17,13 +17,13 @@ const { data } = Astro.props;
     class='absolute bg-gradient-to-b from-violet-100 to-transparent dark:from-purple-900 -z-20 h-full w-full top-0 left-0'
   >
   </div>
-  <div class='container px-4 md:px-6 mx-auto'>
-    <div class='flex flex-col items-center justify-center space-y-4 text-center'>
+  <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
+    <div class='flex flex-col items-center justify-center text-center'>
       <div class='space-y-2'>
         {data?.title && <Subheading title={data?.title} description={data?.description} />}
       </div>
     </div>
-    <div class='mx-auto max-w-5xl py-12 flex flex-col gap-10'>
+    <div class='mx-auto max-w-5xl flex flex-col gap-10'>
       {
         data?.projectsList?.map((project) => {
           return (
@@ -45,9 +45,13 @@ const { data } = Astro.props;
                     </h4>
                   </div>
                   <div class='flex flex-row gap-2'>
-                    <span class='bg-purple-100 text-purple-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-purple-900 dark:text-purple-300'>
-                      Purple
-                    </span>
+                    {project.technologiesOrMethodologies?.map((tech) => {
+                      return (
+                        <span class='bg-violet-100 text-violet-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-violet-900 dark:text-violet-300'>
+                          {tech}
+                        </span>
+                      );
+                    })}
                   </div>
 
                   {project.description && (
@@ -60,7 +64,7 @@ const { data } = Astro.props;
                 {project?.cta && (
                   <a
                     href={project.cta.url}
-                    class='inline-flex items-center text-purple-700 hover:underline gap-2'
+                    class='font-medium text-purple-600 dark:text-purple-500 hover:underline inline-flex flex-row gap-2 items-center'
                   >
                     {project.cta.label}
                     <svg
