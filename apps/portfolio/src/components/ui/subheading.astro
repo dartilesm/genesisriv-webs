@@ -1,0 +1,26 @@
+---
+import { PortableText } from "astro-portabletext";
+
+type Props = {
+  title: string;
+  description?: string | any[];
+};
+
+const { title, description } = Astro.props;
+---
+
+<h2 class='text-4xl font-semibold dark:text-white'>{title}</h2>
+{
+  description && (
+    <>
+      {typeof description === "string" ? (
+        <p class='mb-4 text-lg font-normal text-gray-500 dark:text-gray-400'>{description}</p>
+      ) : (
+        <PortableText
+          class='mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400'
+          value={description}
+        />
+      )}
+    </>
+  )
+}
