@@ -12,35 +12,33 @@ const { data } = Astro.props;
 ---
 
 <section id='certificates' class='w-full py-12 md:py-24 lg:py-32'>
-  <div class='container px-4 md:px-6 mx-auto'>
-    <div class='flex flex-col items-center justify-center space-y-4 text-center'>
+  <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
+    <div class='flex flex-col items-center justify-center text-center'>
       <div class='space-y-2'>
         {data?.title && <Subheading title={data?.title} description={data?.description} />}
       </div>
     </div>
-    <div class='mx-auto grid max-w-5xl items-start gap-8 py-12 lg:grid-cols-2 lg:gap-12'>
+    <div class='mx-auto flex flex-row gap-4 flex-wrap w-full max-w-5xl'>
       {
         data?.certificatesList?.map((certificate) => (
-          <>
-            <div class='max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700'>
-              <a href='#'>
-                <img
-                  class='rounded-t-lg'
-                  src={sanitizeImage(certificate?.photo as SanityImageSource, {
-                    format: "webp",
-                  }).url()}
-                  alt=''
-                />
-              </a>
-              <div class='p-5'>
-                <a href='#'>
-                  <h5 class='mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white'>
-                    {certificate?.title}
-                  </h5>
-                </a>
-              </div>
+          <a
+            class='flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] w-full max-w-xs'
+            href={certificate?.url}
+            target='_blank'
+          >
+            <div class='relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden'>
+              <img
+                class='absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl [aspect-ratio:1/1]'
+                src={sanitizeImage(certificate?.photo as SanityImageSource, {
+                  format: "webp",
+                }).url()}
+                alt={certificate?.photo?.alt || "Certificate"}
+              />
             </div>
-          </>
+            <div class='p-4 md:p-5'>
+              <h3 class='text-lg font-bold text-gray-800 dark:text-white'>{certificate?.title}</h3>
+            </div>
+          </a>
         ))
       }
     </div>

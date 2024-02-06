@@ -22,7 +22,7 @@ const { data } = Astro.props;
       <div class='absolute h-full w-full border-l-2 border-violet-300 left-2 -z-10'></div>
       {
         data?.experienceList?.map((experience) => (
-          <>
+          <div class='flex flex-col gap-4'>
             <div class='flex flex-col gap-2'>
               <div>
                 <span class='bg-violet-100 text-violet-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-violet-900 dark:text-violet-300'>
@@ -30,19 +30,17 @@ const { data } = Astro.props;
                 </span>
               </div>
               <div class='flex flex-col gap-2 px-6'>
-                <h3 class='text-2xl font-semibold whitespace-nowrap leading-none tracking-tight'>
-                  {experience.role}
-                </h3>
-                <p class='text-sm text-muted-foreground'>{experience.subtitle}</p>
+                <h3 class='text-2xl font-semibold dark:text-white'>{experience.role}</h3>
+                <p class='font-semibold text-gray-500 dark:text-gray-400'>{experience.subtitle}</p>
               </div>
             </div>
             <div class='px-6'>
               <PortableText
-                class='text-gray-500'
+                class='text-gray-800 dark:text-gray-300'
                 value={experience.description as unknown as TypedObject}
               />
             </div>
-          </>
+          </div>
         ))
       }
     </div>
