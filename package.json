@@ -6,8 +6,10 @@
   "scripts": {
     "link-tree:dev": "yarn workspace link-tree-app dev",
     "link-tree:build": "yarn workspace link-tree-app build",
+    "link-tree:preview": "yarn workspace link-tree-app preview",
     "portfolio:dev": "yarn workspace portfolio-app dev",
     "portfolio:build": "yarn workspace portfolio-app build",
+    "portfolio:preview": "yarn workspace portfolio-app preview",
     "sanity:dev": "yarn workspace sanity-app dev",
     "sanity:start": "yarn workspace sanity-app start",
     "sanity:build": "yarn workspace sanity-app build",

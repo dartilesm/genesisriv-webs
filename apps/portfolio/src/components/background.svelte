@@ -9,14 +9,16 @@
 </script>
 
 <div
-  class="absolute inset-0 -z-20 h-full w-full bg-white dark:bg-gray-900 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#353535_1px,transparent_1px)] [background-size:16px_16px]"
+  class="absolute inset-0 -z-20 h-full w-full bg-[#e5e7eb] dark:bg-gray-900 bg-[radial-gradient(#cbcbcb_1px,transparent_1px)] dark:bg-[radial-gradient(#353535_1px,transparent_1px)] [background-size:16px_16px]"
 >
   <div
     class="relative h-full w-full bg-gradient-to-b from-transparent to-violet-100 dark:from-transparent dark:to-purple-900"
   ></div>
 </div>
 
-<div class="absolute h-[50em] w-[50em] bg-purple-500 rounded-full -top-64 -left-64 opacity-5"></div>
+<div
+  class="absolute h-64 w-64 md:h-[50em] md:w-[50em] bg-purple-500 rounded-full md:-top-64 md:-left-64 -top-32 -left-32 opacity-5"
+></div>
 <div
   class="absolute h-[25em] w-[25em] bg-purple-500 rounded-full -bottom-64 -right-64 opacity-10"
 ></div>
@@ -35,4 +37,5 @@
     class="absolute h-28 w-28 right-24 -bottom-12 bg-purple-500 rounded-full opacity-5"
     style="transform: translateY({translateY * 1.5}px)"
   ></div>
+  <button on:click={() => console.log("clicking this button")}>CLICK ON ME</button>
 </div>
