@@ -21,13 +21,18 @@
   class="absolute h-[25em] w-[25em] bg-purple-500 rounded-full -bottom-64 -right-64 opacity-10"
 ></div>
 
+<!-- Floating violet circles -->
 <div class="fixed h-full w-full -z-10">
   <div
-    class="absolute h-10 w-10 left-5 bg-purple-500 rounded-full opacity-15"
+    class="absolute h-10 w-10 left-5 bg-purple-500 rounded-full opacity-10"
     style="transform: translateY({translateY}px)"
   ></div>
   <div
     class="absolute h-20 w-20 left-20 bottom-10 bg-purple-500 rounded-full opacity-10"
     style="transform: translateY({translateY}px)"
+  ></div>
+  <div
+    class="absolute h-28 w-28 right-24 -bottom-12 bg-purple-500 rounded-full opacity-5"
+    style="transform: translateY({translateY * 1.5}px)"
   ></div>
 </div>

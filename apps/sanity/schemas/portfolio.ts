@@ -365,23 +365,10 @@ const portfolio = defineType({
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
-                  name: 'cta',
-                  type: 'object',
-                  title: 'Call to Action',
-                  fields: [
-                    defineField({
-                      name: 'label',
-                      type: 'string',
-                      title: 'Label',
-                      validation: (Rule) => Rule.required(),
-                    }),
-                    defineField({
-                      name: 'url',
-                      type: 'url',
-                      title: 'URL',
-                      validation: (Rule) => Rule.required(),
-                    }),
-                  ],
+                  name: 'url',
+                  type: 'url',
+                  title: 'URL',
+                  validation: (Rule) => Rule.required(),
                 }),
                 defineField({
                   name: 'photo',
