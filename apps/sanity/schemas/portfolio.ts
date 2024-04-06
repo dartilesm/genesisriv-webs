@@ -119,9 +119,13 @@ const portfolio = defineType({
       fields: [
         defineField({
           name: 'title',
-          type: 'string',
+          type: 'array',
           title: 'Title',
-          validation: (Rule) => Rule.required(),
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
         }),
         defineField({
           name: 'description',
@@ -219,9 +223,13 @@ const portfolio = defineType({
       fields: [
         defineField({
           name: 'title',
-          type: 'string',
+          type: 'array',
           title: 'Title',
-          validation: (Rule) => Rule.required(),
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
         }),
         defineField({
           name: 'description',
@@ -315,9 +323,13 @@ const portfolio = defineType({
       fields: [
         defineField({
           name: 'title',
-          type: 'string',
+          type: 'array',
           title: 'Title',
-          validation: (Rule) => Rule.required(),
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
         }),
         defineField({
           name: 'description',
@@ -338,9 +350,13 @@ const portfolio = defineType({
       fields: [
         defineField({
           name: 'title',
-          type: 'string',
+          type: 'array',
           title: 'Title',
-          validation: (Rule) => Rule.required(),
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
         }),
         defineField({
           name: 'description',
