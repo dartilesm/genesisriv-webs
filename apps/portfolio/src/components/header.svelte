@@ -1,19 +1,11 @@
 <script lang="ts">
   import { Portfolio } from "@/types";
   import sanitizeImage from "@sanity-app/utils/sanitize-image";
-  import { onMount } from "svelte";
+  import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
   export let data = {} as Portfolio["header"];
 
-  let logoUrl = "";
-
-  onMount(() => {
-    if (data?.logo) {
-      const { url } = sanitizeImage(data.logo, { format: "webp" });
-      logoUrl = url();
-    }
-    console.log({ logoUrl });
-  });
+  let logoUrl = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
 </script>
 
 <header class="container px-4 md:px-6 mx-auto flex flex-col gap-12">
