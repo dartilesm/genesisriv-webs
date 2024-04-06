@@ -22,13 +22,13 @@ const { data } = Astro.props;
       {
         data?.certificatesList?.map((certificate) => (
           <a
-            class='flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-slate-900 dark:border-gray-700 dark:shadow-slate-700/[.7] w-full max-w-xs'
+            class='flex flex-col group break-inside-avoid rounded-xl border border-gray-300 bg-white/20 backdrop-blur-lg transition-all hover:shadow-lg overflow-hidden w-full max-w-xs'
             href={certificate?.url}
             target='_blank'
           >
             <div class='relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden'>
               <img
-                class='absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl [aspect-ratio:1/1]'
+                class='absolute top-0 h-full w-full start-0 object-cover transition-transform duration-500 ease-in-out rounded-t-xl [aspect-ratio:1/1]'
                 src={sanitizeImage(certificate?.photo as SanityImageSource, {
                   format: "webp",
                 }).url()}
