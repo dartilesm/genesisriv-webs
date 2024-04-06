@@ -18,7 +18,7 @@ const { data } = Astro.props;
         {data?.title && <Subheading title={data?.title} description={data?.description} />}
       </div>
     </div>
-    <div class='mx-auto flex flex-row gap-4 flex-wrap w-full max-w-5xl'>
+    <div class='mx-auto flex flex-row gap-4 flex-wrap w-full max-w-5xl justify-center'>
       {
         data?.certificatesList?.map((certificate) => (
           <a
