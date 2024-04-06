@@ -1,15 +1,30 @@
 ---
+import StrongText from "@/components/ui/strong-text.astro";
 import { PortableText } from "astro-portabletext";
 
 type Props = {
-  title: string;
+  title: string | any[];
   description?: string | any[];
 };
 
 const { title, description } = Astro.props;
 ---
 
-<h2 class='text-4xl font-semibold dark:text-white'>{title}</h2>
+{
+  typeof title === "string" ? (
+    <h2 class='text-4xl font-semibold dark:text-white'>{title}</h2>
+  ) : (
+    <PortableText
+      class='text-4xl font-semibold dark:text-white'
+      value={title}
+      components={{
+        mark: {
+          strong: StrongText,
+        },
+      }}
+    />
+  )
+}
 {
   description && (
     <>
