@@ -14,22 +14,19 @@
 <svelte:body :clientHeight={bodyHeight} />
 
 <div class="fixed w-screen -z-10 top-0" style="height: {bodyHeight}px">
-  <div class="relative w-screen h-screen overflow-hidden" style="height: {clientHeight}px">
+  <div class="relative w-screen h-[100dvh] overflow-hidden" style="height: {clientHeight}px">
     <div
-      class="absolute inset-0 -z-20 h-full w-full bg-white dark:bg-gray-900 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#353535_1px,transparent_1px)] [background-size:16px_16px] top-0"
-      style="transform: translateY(-{scrollPosition}px)"
+      class="absolute inset-0 -z-20 h-[100dvh] w-full bg-white bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] top-0"
     >
-      <div
-        class="relative h-full w-full bg-gradient-to-b from-transparent to-violet-100 dark:from-transparent dark:to-purple-900"
-      ></div>
+      <div class="relative h-[100dvh] w-full bg-gradient-to-b from-transparent to-violet-100"></div>
     </div>
 
     <div
-      class="absolute h-[50em] w-[50em] bg-purple-500 rounded-full -top-64 -left-64 opacity-5"
+      class="absolute h-[50em] w-[50em] bg-purple-500 rounded-full -top-64 -left-64 opacity-5 will-change-transform"
       style="transform: translateY(-{scrollPosition}px)"
     ></div>
     <div
-      class="absolute h-[25em] w-[25em] bg-purple-500 rounded-full -bottom-64 -right-64 opacity-10"
+      class="absolute h-[25em] w-[25em] bg-purple-500 rounded-full -bottom-64 -right-64 opacity-10 will-change-transform"
       style="transform: translateY(-{scrollPosition}px)"
     ></div>
   </div>
