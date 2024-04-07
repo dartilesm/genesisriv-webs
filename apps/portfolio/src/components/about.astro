@@ -1,6 +1,7 @@
 ---
 import { Portfolio } from "@/types";
 import { PortableText } from "astro-portabletext";
+import Container from "./ui/container.astro";
 import Subheading from "./ui/subheading.astro";
 
 type Props = {
@@ -10,7 +11,7 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<section id='about' class='w-full py-12 md:py-24 lg:py-32 relative'>
+<Container id='about'>
   <div
     class='absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]'
   >
@@ -25,4 +26,4 @@ const { data } = Astro.props;
       </div>
     </div>
   </div>
-</section>
+</Container>
