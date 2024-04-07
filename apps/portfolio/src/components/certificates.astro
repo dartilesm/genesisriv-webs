@@ -2,6 +2,7 @@
 import { Portfolio } from "@/types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Container from "./ui/container.astro";
 import Subheading from "./ui/subheading.astro";
 
 type Props = {
@@ -11,7 +12,7 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<section id='certificates' class='w-full py-12 md:py-24 lg:py-32'>
+<Container id='certificates'>
   <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
     <div class='flex flex-col items-center justify-center text-center'>
       <div class='space-y-2'>
@@ -43,4 +44,4 @@ const { data } = Astro.props;
       }
     </div>
   </div>
-</section>
+</Container>

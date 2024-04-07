@@ -3,6 +3,7 @@ import { Portfolio } from "@/types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { PortableText } from "astro-portabletext";
+import Container from "./ui/container.astro";
 import Subheading from "./ui/subheading.astro";
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<section id='portfolio' class='w-full py-12 md:py-24 lg:py-32 relative'>
+<Container id='portfolio'>
   <div
     class='absolute bg-gradient-to-b from-violet-100 to-transparent dark:from-purple-900 -z-20 h-full w-full top-0 left-0'
   >
@@ -91,4 +92,4 @@ const { data } = Astro.props;
       }
     </div>
   </div>
-</section>
+</Container>

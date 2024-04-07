@@ -9,12 +9,13 @@
   let logoUrl: string = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
   let isMenuOpen = false;
   let hasScrolledBeyondHeaderHeight = false;
+  let headerHegiht = 0;
 
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
   function handleScroll() {
     if (isMobile && isMenuOpen) return;
-    hasScrolledBeyondHeaderHeight = window.scrollY > 60;
+    hasScrolledBeyondHeaderHeight = window.scrollY > headerHegiht;
   }
 
   function handleMenuToggle() {
@@ -25,14 +26,12 @@
 
 <svelte:window on:scroll={handleScroll} />
 <header
-  class={cn(
-    "px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 sticky top-0 transition-colors duration-300",
-    {
-      "bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80":
-        isMobile && isMenuOpen,
-      "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]": hasScrolledBeyondHeaderHeight,
-    }
-  )}
+  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 sticky top-0", {
+    "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]":
+      hasScrolledBeyondHeaderHeight || isMenuOpen,
+    "transition-colors duration-300": hasScrolledBeyondHeaderHeight,
+  })}
+  bind:clientHeight={headerHegiht}
 >
   <nav class="bg-transparent py-4">
     <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto">
@@ -67,10 +66,10 @@
       <div
         class={cn({
           "w-full md:block md:w-auto": !isMobile,
-          "fixed w-full left-0 top-16 bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80 h-screen z-20 py-4":
-            isMobile,
+          "fixed w-full left-0 bg-white h-screen z-20 py-4": isMobile,
         })}
         class:hidden={!isMenuOpen}
+        style="top: {headerHegiht}px"
         id="navbar-default"
       >
         <ul
