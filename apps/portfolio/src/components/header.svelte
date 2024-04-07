@@ -89,7 +89,7 @@
         })}
         class:hidden={!isMenuOpen && isMobile}
         style:height={isMobile
-          ? `calc(100vh - ${isMenuOpen && isMobile ? headerHegiht : 0}px`
+          ? `calc(100dvh - ${isMenuOpen && isMobile ? headerHegiht : 0}px`
           : "auto"}
         style="top: {headerHegiht}px"
         id="navbar-default"
