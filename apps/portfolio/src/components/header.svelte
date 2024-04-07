@@ -8,8 +8,14 @@
 
   let logoUrl: string = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
   let isMenuOpen = false;
+  let isScrollMoreThanZero = false;
 
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
+
+  function handleScroll() {
+    if (isMobile && isMenuOpen) return;
+    isScrollMoreThanZero = window.scrollY > 60;
+  }
 
   function handleMenuToggle() {
     isMenuOpen = !isMenuOpen;
@@ -17,11 +23,16 @@
   }
 </script>
 
+<svelte:window on:scroll={handleScroll} />
 <header
-  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 relative", {
-    "bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80":
-      isMobile && isMenuOpen,
-  })}
+  class={cn(
+    "px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 sticky top-0 transition-colors duration-300",
+    {
+      "bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80":
+        isMobile && isMenuOpen,
+      "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]": isScrollMoreThanZero,
+    }
+  )}
 >
   <nav class="bg-transparent py-4">
     <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto">
