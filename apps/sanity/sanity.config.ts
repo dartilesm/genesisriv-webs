@@ -1,15 +1,15 @@
-import {deskTool} from 'sanity/desk'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemas'
-import { defineConfig } from '@sanity-typed/types';
 import type { InferSchemaValues } from '@sanity-typed/types';
+import { defineConfig } from '@sanity-typed/types';
+import { visionTool } from '@sanity/vision';
+import { deskTool } from 'sanity/desk';
+import { schemaTypes } from './schemas';
 
 const config = defineConfig({
   name: 'default',
   title: 'Centro de Links - Genesis Rivero - Sanity.io',
   
-  projectId: 'l2ne4htk',
-  dataset: 'production',
+  projectId: import.meta.env.SANITY_STUDIO_SANITY_PROJECT_ID,
+  dataset: import.meta.env.SANITY_STUDIO_SANITY_DATASET,
 
   plugins: [deskTool(), visionTool()],
 

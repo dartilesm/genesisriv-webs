@@ -1,8 +1,8 @@
 /// <reference types="vite/client" />
 
 interface ImportMetaEnv {
-    VITE_SANITY_PROJECT_ID: string
-    VITE_SANITY_DATASET: string
+    SANITY_STUDIO_SANITY_PROJECT_ID: string
+    SANITY_STUDIO_SANITY_DATASET: string
 }
   
 interface ImportMeta {

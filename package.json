@@ -25,5 +25,8 @@
   "workspaces": [
     "apps/*"
   ],
-  "private": true
+  "private": true,
+  "dependencies": {
+    "@sanity/client": "^6.15.11"
+  }
 }
