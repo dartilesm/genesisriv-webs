@@ -27,6 +27,7 @@
   ],
   "private": true,
   "dependencies": {
-    "@sanity/client": "^6.15.11"
+    "@sanity/client": "^6.15.11",
+    "tailwindcss-animated": "^1.0.1"
   }
 }
