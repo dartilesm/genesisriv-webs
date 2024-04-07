@@ -8,13 +8,13 @@
 
   let logoUrl: string = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
   let isMenuOpen = false;
-  let isScrollMoreThanZero = false;
+  let hasScrolledBeyondHeaderHeight = false;
 
   const isMobile = window.matchMedia("(max-width: 767px)").matches;
 
   function handleScroll() {
     if (isMobile && isMenuOpen) return;
-    isScrollMoreThanZero = window.scrollY > 60;
+    hasScrolledBeyondHeaderHeight = window.scrollY > 60;
   }
 
   function handleMenuToggle() {
@@ -30,7 +30,7 @@
     {
       "bg-white bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80":
         isMobile && isMenuOpen,
-      "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]": isScrollMoreThanZero,
+      "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]": hasScrolledBeyondHeaderHeight,
     }
   )}
 >
