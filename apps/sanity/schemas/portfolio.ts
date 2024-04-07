@@ -52,6 +52,40 @@ const portfolio = defineType({
             })
           ],
         }),
+        defineField({
+          name: 'socialLinks',
+          type: 'array',
+          title: 'Social Links',
+          of: [
+            defineArrayMember({
+              name: 'socialLink',
+              type: 'object',
+              title: 'Social Link',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  type: 'string',
+                  title: 'Icon',
+                  options: {
+                    list: [
+                      { title: 'LinkedIn', value: 'Linkedin' },
+                      { title: 'X', value: 'X' },
+                      { title: 'Instagram', value: 'Instagram' },
+                      { title: 'Curriculum Vitae', value: 'CV' },
+                    ],
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'url',
+                  type: 'string',
+                  title: 'URL',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+            }),
+          ],
+        })
       ],
     }),
     defineField({
@@ -104,7 +138,7 @@ const portfolio = defineType({
             }),
             defineField({
               name: 'url',
-              type: 'url',
+              type: 'string',
               title: 'URL',
               validation: (Rule) => Rule.required(),
             }),
