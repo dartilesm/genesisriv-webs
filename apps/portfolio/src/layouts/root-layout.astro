@@ -52,8 +52,8 @@ const { url } = Astro;
     <PlausibleScript />
   </head>
   <body class='bg-white dark:bg-gray-900 overflow-x-hidden'>
-    <Header data={headerData} client:load />
-    <Background client:only />
+    <Header data={headerData} client:only='svelte' />
+    <Background client:only='svelte' />
     <main>
       <slot />
     </main>
