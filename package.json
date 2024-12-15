@@ -27,10 +27,6 @@
   ],
   "private": true,
   "dependencies": {
-    "@astrojs/svelte": "7.0.1",
-    "astro": "5.0.5",
-    "lucide-svelte": "^0.365.0",
-    "svelte": "5.14.0",
     "tailwindcss-animated": "^1.0.1"
   }
 }
