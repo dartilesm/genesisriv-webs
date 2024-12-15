@@ -1,11 +1,10 @@
 ---
 import ArrowRight from "@/assets/icons/arrow-right.svg";
 import Heading from "@/components/ui/heading.astro";
-import type { Portfolio } from "@/types/index";
+import { Portfolio } from "@sanity-app/sanity.types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Image } from "astro:assets";
-import { Icon } from "svelte-icons-pack";
 import { FiAtSign, FiFileText, FiLinkedin } from "svelte-icons-pack/fi";
 import { SiInstagram, SiX } from "svelte-icons-pack/si";
 import Button from "./ui/button.astro";
