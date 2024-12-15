@@ -8,8 +8,7 @@ import Testimonials from "@/components/testimonials.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
 import type { Metadata, Portfolio } from "@sanity-app/sanity.types";
-/* const [siteData] = await useSanityClient().fetch<Portfolio[]>(`*[_type == "portfolio"]`);
-const [, siteMetaData] = await useSanityClient().fetch<Metadata[]>(`*[_type == "metadata"]`); */
+
 const {
   data: [siteData],
 } = await loadQuery<Portfolio[]>({
@@ -21,8 +20,6 @@ const {
 } = await loadQuery<Metadata[]>({
   query: `*[_type == "metadata"]`,
 });
-
-console.log({ portfolioMetadata });
 ---
 
 <RootLayout metadata={portfolioMetadata} headerData={siteData.header}>
