@@ -3083,6 +3083,10 @@
                           },
                           {
                             "type": "string",
+                            "value": "medium"
+                          },
+                          {
+                            "type": "string",
                             "value": "large"
                           }
                         ]

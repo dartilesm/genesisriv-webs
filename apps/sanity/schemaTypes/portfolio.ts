@@ -580,7 +580,7 @@ const portfolio = defineType({
                   title: 'Size',
                   description: 'This is the size of the testimonial card',
                   options: {
-                    list: ['small', 'large'],
+                    list: ['small', 'medium', 'large'],
                   },
                   validation: (Rule) => Rule.required(),
                 }),

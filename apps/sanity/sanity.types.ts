@@ -400,7 +400,7 @@ export type Portfolio = {
         _type: 'block'
         _key: string
       }>
-      size?: 'small' | 'large'
+      size?: 'small' | 'medium' | 'large'
       _key: string
     }>
     cta?: {
