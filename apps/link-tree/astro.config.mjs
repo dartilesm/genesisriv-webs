@@ -9,6 +9,7 @@ export default defineConfig({
     sanity({
       projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
       dataset: import.meta.env.VITE_SANITY_DATASET,
+      token: import.meta.env.VITE_SANITY_API_READ_TOKEN,
       apiVersion: "v2023-03-01",
       useCdn: true,
     }),
