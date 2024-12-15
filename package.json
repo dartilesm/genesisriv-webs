@@ -5,15 +5,15 @@
   "main": "index.js",
   "scripts": {
     "commit": "sui-mono commit",
-    "link-tree:dev": "yarn workspace link-tree-app dev",
-    "link-tree:build": "yarn workspace link-tree-app build",
-    "portfolio:dev": "yarn workspace portfolio-app dev",
-    "portfolio:build": "yarn workspace portfolio-app build",
-    "sanity:dev": "yarn workspace sanity-app dev",
-    "sanity:start": "yarn workspace sanity-app start",
-    "sanity:build": "yarn workspace sanity-app build",
-    "sanity:deploy": "yarn workspace sanity-app deploy",
-    "dev": "concurrently \"yarn astro:dev\" \"yarn sanity:dev\""
+    "link-tree:dev": "cd apps/link-tree && bun run dev",
+    "link-tree:build": "cd apps/link-tree && bun run build",
+    "portfolio:dev": "cd apps/portfolio && bun run dev",
+    "portfolio:build": "cd apps/portfolio && bun run build",
+    "sanity:dev": "cd apps/sanity && bun run dev",
+    "sanity:start": "cd apps/sanity && bun run start",
+    "sanity:build": "cd apps/sanity && bun run build",
+    "sanity:deploy": "cd apps/sanity && bun run deploy",
+    "dev": "concurrently \"bun run astro:dev\" \"bun run sanity:dev\""
   },
   "keywords": [],
   "author": "",
@@ -27,9 +27,10 @@
   ],
   "private": true,
   "dependencies": {
-    "@sanity/client": "^6.15.11",
+    "@astrojs/svelte": "7.0.1",
+    "astro": "5.0.5",
     "lucide-svelte": "^0.365.0",
-    "svelte-icons-pack": "^3.1.3",
+    "svelte": "5.14.0",
     "tailwindcss-animated": "^1.0.1"
   }
 }
