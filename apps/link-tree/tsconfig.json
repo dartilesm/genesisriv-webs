@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     "jsx": "react-jsx",
     "jsxImportSource": "react",
@@ -7,8 +7,12 @@
     "isolatedModules": true,
     "verbatimModuleSyntax": false,
     "paths": {
-      "@/*": ["src/*"],
-      "@sanity-app/*": ["../../apps/sanity/*"]
+      "@/*": [
+        "src/*"
+      ],
+      "@sanity-app/*": [
+        "../../apps/sanity/*"
+      ]
     },
     "allowSyntheticDefaultImports": true
   }

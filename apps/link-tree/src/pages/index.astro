@@ -4,18 +4,27 @@ import HeadingInfo from "@/components/heading-info.astro";
 import IconList from "@/components/icon-list.astro";
 import ProfileImage from "@/components/profile-image.astro";
 import RootLayout from "@/layouts/root-layout.astro";
-import type { LinkTree, Metadata } from "@/types/index";
+import { loadQuery } from "@/utils/sanity-load-query";
+import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
-import { useSanityClient } from "@sanity/astro";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 
-const [siteData] = await useSanityClient().fetch<LinkTree[]>(`*[_type == "linkTree"]`);
-const [siteMetaData] = await useSanityClient().fetch<Metadata[]>(`*[_type == "metadata"]`);
+const {
+  data: [siteData],
+} = await loadQuery<LinkTree[]>({
+  query: `*[_type == "linkTree"]`,
+});
+
+const {
+  data: [linkTreeMetadata],
+} = await loadQuery<Metadata[]>({
+  query: `*[_type == "metadata"]`,
+});
 ---
 
 <RootLayout
   className='flex justify-center items-center flex-col gap-6 text-[#222730] dark:text-gray-200'
-  metadata={siteMetaData}
+  metadata={linkTreeMetadata}
 >
   <div class='flex flex-col gap-8 justify-center items-center'>
     <ProfileImage
