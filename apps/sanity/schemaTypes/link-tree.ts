@@ -1,5 +1,4 @@
-import { defineArrayMember, defineField, defineType } from "@sanity-typed/types";
-
+import { defineArrayMember, defineField, defineType } from "sanity"
 
 const linkTree = defineType({
   name: 'linkTree',

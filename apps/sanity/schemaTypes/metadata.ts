@@ -1,4 +1,4 @@
-import { defineType, defineField } from "@sanity-typed/types";
+import { defineField, defineType } from "sanity";
 
 
 const metadata = defineType({
