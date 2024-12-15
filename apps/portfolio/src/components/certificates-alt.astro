@@ -1,0 +1,97 @@
+---
+import MedalIcon from "@/assets/icons/medal.svg";
+import { Portfolio } from "@/types";
+import sanitizeImage from "@sanity-app/utils/sanitize-image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import Container from "./ui/container.astro";
+import Section from "./ui/section.astro";
+
+type Props = {
+  data: Portfolio["certificates"];
+};
+
+const { data } = Astro.props;
+---
+
+<Section
+  id='certificates-alt'
+  heading={data?.title}
+  description={data?.description}
+  class='w-full py-20 md:py-24 lg:py-32 relative overflow-hidden'
+>
+  <Container>
+    <div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8'>
+      {
+        data?.certificatesList?.map((certificate) => (
+          <a
+            href={certificate?.url}
+            target='_blank'
+            class='group relative bg-white dark:bg-gray-900 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden'
+          >
+            {/* Top Decoration */}
+            <div class='absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-purple-500 to-purple-700 rounded-t-2xl' />
+
+            <div class='p-4'>
+              {/* Header */}
+              <div class='flex items-center gap-3'>
+                <div class='w-8 h-8 rounded-lg bg-purple-100 dark:bg-purple-900/50 flex items-center justify-center shrink-0'>
+                  <MedalIcon class='w-4 h-4 text-purple-600 dark:text-purple-400' />
+                </div>
+                <h3 class='text-base font-semibold text-gray-900 dark:text-white line-clamp-1 flex-1'>
+                  {certificate?.title}
+                </h3>
+              </div>
+            </div>
+
+            {/* Certificate Image Container */}
+            <div class='relative aspect-[16/9] rounded-b-2xl overflow-hidden'>
+              {/* Image with zoom effect */}
+              <div class='absolute inset-0 z-0'>
+                <img
+                  src={sanitizeImage(certificate?.photo as SanityImageSource, {
+                    format: "webp",
+                  }).url()}
+                  alt={certificate?.photo?.alt || "Certificate"}
+                  class='h-full w-full object-cover transition-transform duration-500 group-hover:scale-110'
+                />
+              </div>
+
+              {/* Static gradient overlay */}
+              <div class='absolute inset-0 z-10 bg-gradient-to-t from-black/60 to-transparent pointer-events-none' />
+
+              {/* View Button */}
+              <div class='absolute inset-x-0 bottom-0 p-4 z-20'>
+                <div class='flex items-center justify-between text-white'>
+                  <span class='text-sm font-medium'>Ver certificado</span>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    class='w-5 h-5 group-hover:translate-x-1 transition-transform'
+                    viewBox='0 0 24 24'
+                    fill='none'
+                    stroke='currentColor'
+                    stroke-width='2'
+                    stroke-linecap='round'
+                    stroke-linejoin='round'
+                  >
+                    <path d='M5 12h14' />
+                    <path d='m12 5 7 7-7 7' />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Container>
+
+  {/* Background Elements */}
+  <div
+    class='absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+  >
+  </div>
+  <div
+    class='absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] bg-purple-400 opacity-20 blur-[100px]'
+  >
+  </div>
+</Section>

@@ -3,7 +3,7 @@ import { Portfolio } from "@/types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import Container from "./ui/container.astro";
-import Subheading from "./ui/subheading.astro";
+import Section from "./ui/section.astro";
 
 type Props = {
   data: Portfolio["certificates"];
@@ -12,36 +12,29 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<Container id='certificates'>
-  <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
-    <div class='flex flex-col items-center justify-center text-center'>
-      <div class='space-y-2'>
-        {data?.title && <Subheading title={data?.title} description={data?.description} />}
-      </div>
-    </div>
-    <div class='mx-auto flex flex-row gap-4 flex-wrap w-full max-w-5xl justify-center'>
-      {
-        data?.certificatesList?.map((certificate) => (
-          <a
-            class='flex flex-col group break-inside-avoid rounded-xl border border-gray-300 bg-white/20 backdrop-blur-lg transition-all hover:shadow-lg overflow-hidden w-full max-w-xs'
-            href={certificate?.url}
-            target='_blank'
-          >
-            <div class='relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden'>
-              <img
-                class='absolute top-0 h-full w-full start-0 object-cover transition-transform duration-500 ease-in-out rounded-t-xl [aspect-ratio:1/1]'
-                src={sanitizeImage(certificate?.photo as SanityImageSource, {
-                  format: "webp",
-                }).url()}
-                alt={certificate?.photo?.alt || "Certificate"}
-              />
-            </div>
-            <div class='p-4 md:p-5'>
-              <h3 class='text-lg font-bold text-gray-800 dark:text-white'>{certificate?.title}</h3>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </div>
-</Container>
+<Section id='certificates' heading={data?.title} description={data?.description}>
+  <Container class='flex flex-row gap-4 flex-wrap justify-center'>
+    {
+      data?.certificatesList?.map((certificate) => (
+        <a
+          class='flex flex-col group break-inside-avoid rounded-xl border border-gray-300 bg-white/20 backdrop-blur-lg transition-all hover:shadow-lg overflow-hidden w-full max-w-xs'
+          href={certificate?.url}
+          target='_blank'
+        >
+          <div class='relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden'>
+            <img
+              class='absolute top-0 h-full w-full start-0 object-cover transition-transform duration-500 ease-in-out rounded-t-xl [aspect-ratio:1/1]'
+              src={sanitizeImage(certificate?.photo as SanityImageSource, {
+                format: "webp",
+              }).url()}
+              alt={certificate?.photo?.alt || "Certificate"}
+            />
+          </div>
+          <div class='p-4 md:p-5'>
+            <h3 class='text-lg font-bold text-gray-800 dark:text-white'>{certificate?.title}</h3>
+          </div>
+        </a>
+      ))
+    }
+  </Container>
+</Section>

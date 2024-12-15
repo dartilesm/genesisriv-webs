@@ -1,0 +1,145 @@
+---
+import { Portfolio } from "@/types";
+import { PortableText } from "astro-portabletext";
+import Button from "./ui/button.astro";
+import Container from "./ui/container.astro";
+import Section from "./ui/section.astro";
+
+type Props = {
+  data: Portfolio["about"];
+};
+
+const { data } = Astro.props;
+---
+
+<Section
+  id='about'
+  heading={data?.title}
+  class='w-full py-20 md:py-24 lg:py-32 relative overflow-hidden'
+>
+  <Container>
+    <div class='grid lg:grid-cols-[400px_1fr] gap-12 items-start relative'>
+      {/* Left Column - Visual Elements */}
+      <div class='relative hidden lg:block'>
+        <div
+          class='aspect-square rounded-2xl bg-gradient-to-br from-purple-100 to-purple-50 dark:from-purple-900/20 dark:to-purple-800/10 p-8 sticky top-24'
+        >
+          <div
+            class='absolute inset-1 rounded-xl border border-purple-200/50 dark:border-purple-700/20'
+          >
+          </div>
+          <div class='h-full flex flex-col justify-between relative'>
+            <svg
+              xmlns='http://www.w3.org/2000/svg'
+              class='w-8 h-8 text-purple-500/30'
+              width='24'
+              height='24'
+              viewBox='0 0 24 24'
+              stroke-width='2'
+              stroke='currentColor'
+              fill='none'
+              stroke-linecap='round'
+              stroke-linejoin='round'
+            >
+              <path stroke='none' d='M0 0h24v24H0z' fill='none'></path>
+              <path
+                d='M3 12h1m8 -9v1m8 8h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7m-9.7 13.7l-.2 -1a4.2 4.2 0 0 1 4 -5a4.2 4.2 0 0 1 4 5l-.2 1m-7.6 -2a6 6 0 1 1 12 0'
+              ></path>
+            </svg>
+
+            <div class='space-y-4'>
+              {
+                data?.currentActivity?.map((activity, index) => {
+                  return (
+                    <>
+                      <div class='flex flex-col gap-2'>
+                        <div class='flex items-center gap-2'>
+                          <div class='relative flex h-2 w-2'>
+                            {/* Status Indicator */}
+                            <span class='animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75' />
+                            <span class='relative inline-flex rounded-full h-2 w-2 bg-yellow-500' />
+                          </div>
+                          <span class='text-sm text-purple-600/60 dark:text-purple-300/60'>
+                            {activity.label}
+                          </span>
+                        </div>
+                        <span class='font-medium text-purple-900/80 dark:text-purple-100/80'>
+                          {activity.description}
+                        </span>
+                      </div>
+                      {data?.currentActivity[index + 1] && (
+                        <div class='h-px bg-gradient-to-r from-purple-200/0 via-purple-200 to-purple-200/0 dark:from-purple-700/0 dark:via-purple-700 dark:to-purple-700/0' />
+                      )}
+                    </>
+                  );
+                })
+              }
+              {
+                data?.activityCTA && (
+                  <Button
+                    as='a'
+                    href={data?.activityCTA?.url}
+                    variant='secondary'
+                    class='mt-2 text-xs py-1.5 px-3'
+                  >
+                    {data?.activityCTA?.label}
+                    <svg
+                      slot='icon'
+                      xmlns='http://www.w3.org/2000/svg'
+                      class='w-3.5 h-3.5 ms-2'
+                      width='24'
+                      height='24'
+                      viewBox='0 0 24 24'
+                      stroke-width='2'
+                      stroke='currentColor'
+                      fill='none'
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                    >
+                      <path stroke='none' d='M0 0h24v24H0z' fill='none' />
+                      <path d='M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z' />
+                      <path d='M3 7l9 6l9 -6' />
+                    </svg>
+                  </Button>
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Column - Content */}
+      <div class='lg:pb-12'>
+        <div class='prose prose-purple dark:prose-invert max-w-none'>
+          {
+            data?.description && (
+              <div class='[&>p]:mb-4 [&>p:last-child]:mb-0 text-gray-600 dark:text-gray-300'>
+                <PortableText value={data.description} />
+              </div>
+            )
+          }
+        </div>
+
+        {/* Stats or highlights */}
+        <div class='mt-12 grid grid-cols-2 md:grid-cols-4 gap-4'>
+          {
+            data?.stats?.map((stat) => (
+              <div class='p-4 rounded-xl bg-purple-50 dark:bg-purple-900/20'>
+                <div class='text-2xl font-bold text-purple-600 dark:text-purple-300'>
+                  {stat.number}
+                </div>
+                <div class='text-sm text-purple-600/60 dark:text-purple-300/60'>{stat.label}</div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+
+  {/* Background decoration */}
+  <div
+    class='absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+  >
+  </div>
+</Section>

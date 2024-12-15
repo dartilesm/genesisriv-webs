@@ -45,14 +45,14 @@
 
 <svelte:window on:scroll={handleScroll} on:resize={handleResize} />
 <header
-  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 sticky top-0", {
+  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-30 sticky top-0", {
     "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]":
       hasScrolledBeyondHeaderHeight || isMenuOpen,
     "transition-colors duration-300": hasScrolledBeyondHeaderHeight,
   })}
   bind:clientHeight={headerHegiht}
 >
-  <nav class="bg-transparent py-4">
+  <nav class="bg-transparent py-4 container mx-auto">
     <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto">
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src={logoUrl} class="h-8" alt={data?.logo?.alt} />

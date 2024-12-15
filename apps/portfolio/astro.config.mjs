@@ -7,6 +7,11 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
+    experimental: {
+        svg: {
+            mode: "sprite"
+        }
+    },
     integrations: [sanity({
         projectId: import.meta.env.VITE_SANITY_PROJECT_ID,
         dataset: import.meta.env.VITE_SANITY_DATASET,

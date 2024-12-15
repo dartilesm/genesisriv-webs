@@ -3,7 +3,7 @@ import { Portfolio } from "@/types";
 import { PortableText } from "astro-portabletext";
 import type { TypedObject } from "astro-portabletext/types";
 import Container from "./ui/container.astro";
-import Subheading from "./ui/subheading.astro";
+import Section from "./ui/section.astro";
 
 type Props = {
   data: Portfolio["experience"];
@@ -12,16 +12,13 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<Container
+<Section
   id='experience'
+  heading={data?.title}
+  description={data?.description}
   class='w-full py-20 md:py-24 lg:py-32 relative [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]'
 >
-  <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
-    <div class='flex flex-col items-center justify-center text-center'>
-      <div class='space-y-2'>
-        {data?.title && <Subheading title={data?.title} description={data?.description} />}
-      </div>
-    </div>
+  <Container class='flex flex-col gap-10'>
     <div class='relative mx-auto grid max-w-5xl items-start gap-8'>
       <div class='absolute h-full w-full border-l-2 border-violet-300 left-2 -z-[2]'></div>
       {
@@ -48,7 +45,7 @@ const { data } = Astro.props;
         ))
       }
     </div>
-  </div>
+  </Container>
   <div
     class='absolute h-full w-full bg-purple-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10
     -z-10 top-0 left-0'
@@ -62,8 +59,4 @@ const { data } = Astro.props;
     >
     </div>
   </div>
-  <!--   <div
-    class='absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px]'
-  >
-</div> -->
-</Container>
+</Section>

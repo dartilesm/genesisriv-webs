@@ -1,37 +1,75 @@
 ---
+import ArrowRight from "@/assets/icons/arrow-right.svg";
 import Heading from "@/components/ui/heading.astro";
 import type { Portfolio } from "@/types/index";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { Image } from "astro:assets";
+import { Icon } from "svelte-icons-pack";
+import { FiAtSign, FiFileText, FiLinkedin } from "svelte-icons-pack/fi";
+import { SiInstagram, SiX } from "svelte-icons-pack/si";
+import Button from "./ui/button.astro";
 import Container from "./ui/container.astro";
+import Section from "./ui/section.astro";
 
 type Props = {
   data: Portfolio["presentation"];
 };
 
 const { data } = Astro.props;
+
+function getIcon(icon: string) {
+  const icons = {
+    X: SiX,
+    Instagram: SiInstagram,
+    Linkedin: FiLinkedin,
+    CV: FiFileText,
+    Mail: FiAtSign,
+  };
+
+  return icons[icon as keyof typeof icons];
+}
 ---
 
-<Container
-  id='presentation'
-  class='xl:pt-48 min-h-[calc(100dvh-72px)] md:min-h-[calc(100dvh-64px)]'
->
-  <div class='container px-4 md:px-6 mx-auto'>
-    <div class='flex flex-col items-center space-y-4 text-center'>
-      {
-        data?.profileImg && (
-          <img
+<Section id='presentation'>
+  <Container
+    class='flex flex-row gap-10 justify-between max-md:flex-col-reverse max-md:items-center'
+  >
+    {
+      data?.title && (
+        <div class='max-w-lg text-left'>
+          <Heading title={data?.title} description={data?.description} />
+          <ul class='flex flex-row gap-6 items-center'>
+            {data?.socialLinks?.map((socialLink) => (
+              <li class='flex items-center'>
+                <Button as='a' href={socialLink.url} variant='icon' target='_blank'>
+                  <Icon src={getIcon(socialLink.icon)} size={20} />
+                </Button>
+              </li>
+            ))}
+            {data?.cta && (
+              <li class='flex items-center'>
+                <Button as='a' href={data?.cta?.url} target='_blank' class='group'>
+                  {data.cta?.label}
+                  <ArrowRight class='group-hover:translate-x-1 transition-transform w-3.5 h-3.5 ms-2 rtl:rotate-180' />
+                </Button>
+              </li>
+            )}
+          </ul>
+        </div>
+      )
+    }
+    {
+      data?.profileImg && (
+        <div class='max-w-md'>
+          <Image
             src={sanitizeImage(data?.profileImg as SanityImageSource, { format: "webp" }).url()}
             alt={data?.profileImg.alt}
             class='max-w-60 [aspect-ratio:176/215] rounded-full mx-auto'
+            inferSize={true}
           />
-        )
-      }
-      {
-        data?.title && (
-          <Heading title={data?.title} description={data?.description} cta={data?.cta} />
-        )
-      }
-    </div>
-  </div>
-</Container>
+        </div>
+      )
+    }
+  </Container>
+</Section>

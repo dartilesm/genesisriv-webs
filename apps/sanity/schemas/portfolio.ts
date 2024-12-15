@@ -52,40 +52,6 @@ const portfolio = defineType({
             })
           ],
         }),
-        defineField({
-          name: 'socialLinks',
-          type: 'array',
-          title: 'Social Links',
-          of: [
-            defineArrayMember({
-              name: 'socialLink',
-              type: 'object',
-              title: 'Social Link',
-              fields: [
-                defineField({
-                  name: 'icon',
-                  type: 'string',
-                  title: 'Icon',
-                  options: {
-                    list: [
-                      { title: 'LinkedIn', value: 'Linkedin' },
-                      { title: 'X', value: 'X' },
-                      { title: 'Instagram', value: 'Instagram' },
-                      { title: 'Curriculum Vitae', value: 'CV' },
-                    ],
-                  },
-                  validation: (Rule) => Rule.required(),
-                }),
-                defineField({
-                  name: 'url',
-                  type: 'string',
-                  title: 'URL',
-                  validation: (Rule) => Rule.required(),
-                }),
-              ],
-            }),
-          ],
-        })
       ],
     }),
     defineField({
@@ -122,6 +88,41 @@ const portfolio = defineType({
           of: [
             defineArrayMember({
               type: 'block',
+            }),
+          ],
+        }),
+        defineField({
+          name: 'socialLinks',
+          type: 'array',
+          title: 'Social Links',
+          of: [
+            defineArrayMember({
+              name: 'socialLink',
+              type: 'object',
+              title: 'Social Link',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  type: 'string',
+                  title: 'Icon',
+                  options: {
+                    list: [
+                      { title: 'LinkedIn', value: 'Linkedin' },
+                      { title: 'X', value: 'X' },
+                      { title: 'Instagram', value: 'Instagram' },
+                      { title: 'Curriculum Vitae', value: 'CV' },
+                      { title: 'Mail', value: 'Mail' },
+                    ],
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'url',
+                  type: 'string',
+                  title: 'URL',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
             }),
           ],
         }),
@@ -375,6 +376,79 @@ const portfolio = defineType({
             }),
           ],
         }),
+        defineField({
+          name: 'currentActivity',
+          type: 'array',
+          title: 'Current Activity',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'label',
+                  type: 'string',
+                  title: 'Label',
+                  placeholder: 'Cursando',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'description',
+                  type: 'string',
+                  title: 'Description',
+                  placeholder: 'Carrera de Diseño Gráfico Artístico/Digital',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
+          name: 'activityCTA',
+          type: 'object',
+          title: 'Activity Call to Action',
+          fields: [
+            defineField({
+              name: 'label',
+              type: 'string',
+              title: 'Label',
+              placeholder: 'Trabajemos juntos',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              type: 'string',
+              title: 'URL',
+              placeholder: 'mailto:desginer.genesisriv@gmail.com',
+              validation: (Rule) => Rule.required(),
+            }),
+          ],
+        }),
+        defineField({
+          name: 'stats',
+          type: 'array',
+          title: 'Stats',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'number',
+                  type: 'string',
+                  placeholder: '5+',
+                  title: 'Number',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'label',
+                  type: 'string',
+                  title: 'Label',
+                  placeholder: 'Years of experience',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+            }),
+          ],
+        }),
       ],
     }),
     defineField({
@@ -437,6 +511,107 @@ const portfolio = defineType({
                   ],
                 }),
               ],
+            }),
+          ],
+        }),
+      ],
+    }),
+    defineField({
+      name: 'testimonials',
+      type: 'object',
+      title: 'Testimonials',
+      fields: [
+        defineField({
+          name: 'title',
+          type: 'array',
+          title: 'Title',
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
+        }),
+        defineField({
+          name: 'description',
+          type: 'string',
+          title: 'Description',
+        }),
+        defineField({
+          name: 'testimonialsList',
+          type: 'array',
+          title: 'Testimonials List',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'name',
+                  type: 'string',
+                  title: 'Name',
+                  placeholder: 'Fernando Ruiz',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'role',
+                  type: 'string',
+                  title: 'Role',
+                  placeholder: 'Sr. Product Designer & Strategy - NoCode developer',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'imageUrl',
+                  type: 'string',
+                  title: 'Image URL',
+                  validation: (Rule) => Rule.required(),
+                }),
+                defineField({
+                  name: 'text',
+                  type: 'array',
+                  title: 'Text',
+                  of: [
+                    defineArrayMember({
+                      type: 'block',
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: 'size',
+                  type: 'string',
+                  title: 'Size',
+                  description: 'This is the size of the testimonial card',
+                  options: {
+                    list: ['small', 'large'],
+                  },
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
+            }),
+          ],
+        }),
+        defineField({
+          name: 'cta',
+          type: 'object',
+          title: 'Call to Action',
+          fields: [
+            defineField({
+              name: 'subtitle',
+              type: 'string',
+              title: 'Subtitle',
+              placeholder: 'Recomendaciones de colegas y clientes con los que he tenido el placer de trabajar',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'label',
+              type: 'string',
+              title: 'Label',
+              placeholder: 'Dejar una recomendación',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              type: 'string',
+              title: 'URL',
+              validation: (Rule) => Rule.required(),
             }),
           ],
         }),
