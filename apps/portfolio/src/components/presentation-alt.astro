@@ -2,11 +2,9 @@
 import { Portfolio } from "@sanity-app/sanity.types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { Icon } from "astro-icon/components";
 import { PortableText } from "astro-portabletext";
 import { Image } from "astro:assets";
-import { Icon } from "svelte-icons-pack";
-import { FiAtSign, FiFileText, FiLinkedin } from "svelte-icons-pack/fi";
-import { SiInstagram, SiX } from "svelte-icons-pack/si";
 import Button from "./ui/button.astro";
 import Container from "./ui/container.astro";
 import Section from "./ui/section.astro";
@@ -20,11 +18,10 @@ const { data } = Astro.props;
 
 function getIcon(icon: string) {
   const icons = {
-    X: SiX,
-    Instagram: SiInstagram,
-    Linkedin: FiLinkedin,
-    CV: FiFileText,
-    Mail: FiAtSign,
+    X: "x",
+    Instagram: "instagram",
+    Linkedin: "linkedin2",
+    Mail: "at",
   };
 
   return icons[icon as keyof typeof icons];
@@ -111,7 +108,7 @@ function getIcon(icon: string) {
         {
           data?.socialLinks?.map((socialLink) => (
             <Button as='a' href={socialLink.url} variant='icon' target='_blank' class='group'>
-              <Icon src={getIcon(socialLink.icon)} size={20} />
+              <Icon name={getIcon(socialLink.icon)} size={20} />
             </Button>
           ))
         }

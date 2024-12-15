@@ -1,15 +1,11 @@
 <script lang="ts">
-  import type { Portfolio } from "@/types";
   import { cn } from "@/utils/cn";
+  import type { Portfolio } from "@sanity-app/sanity.types";
   import sanitizeImage from "@sanity-app/utils/sanitize-image";
-  import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-  import { Icon } from "svelte-icons-pack";
-  import { FiFileText, FiLinkedin } from "svelte-icons-pack/fi";
-  import { SiInstagram, SiX } from "svelte-icons-pack/si";
 
   export let data = {} as Portfolio["header"];
 
-  let logoUrl: string = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
+  let logoUrl: string = sanitizeImage(data?.logo, { format: "webp" }).url();
   let isMenuOpen = false;
   let hasScrolledBeyondHeaderHeight = false;
   let headerHegiht = 0;
@@ -29,17 +25,6 @@
   function handleMenuToggle() {
     isMenuOpen = !isMenuOpen;
     if (isMobile) window.document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
-  }
-
-  function getIcon(icon: string) {
-    const icons = {
-      X: SiX,
-      Instagram: SiInstagram,
-      Linkedin: FiLinkedin,
-      CV: FiFileText,
-    };
-
-    return icons[icon as keyof typeof icons];
   }
 </script>
 
@@ -114,22 +99,6 @@
               </a>
             </li>
           {/each}
-        </ul>
-        <ul
-          class={cn({
-            "inline-flex gap-4": !isMobile,
-            "flex flex-col gap-6 items-end px-4 py-8": isMobile,
-          })}
-        >
-          {#if data?.socialLinks}
-            {#each data?.socialLinks as socialLink}
-              <li class="flex items-center">
-                <a href={socialLink.url} class="hover:text-purple-700 p-0" target="_blank">
-                  <Icon src={getIcon(socialLink.icon)} size={20} />
-                </a>
-              </li>
-            {/each}
-          {/if}
         </ul>
       </div>
     </div>
