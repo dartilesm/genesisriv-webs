@@ -6,6 +6,15 @@ const portfolio = defineType({
   title: 'Portfolio',
   fields: [
     defineField({
+      name: 'title',
+      type: 'string',
+      hidden: true,
+      title: 'Title (read only)',
+      initialValue: 'Portfolio Data',
+      readOnly: true,
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'header',
       type: 'object',
       title: 'Header',
@@ -76,9 +85,21 @@ const portfolio = defineType({
           ],
         }),
         defineField({
+          name: 'currentStatus',
+          type: 'string',
+          title: 'Current Status',
+          placeholder: 'Disponible para trabajar'
+        }),
+        defineField({
           name: 'title',
           type: 'string',
           title: 'Title',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'role',
+          type: 'string',
+          title: 'Role',
           validation: (Rule) => Rule.required(),
         }),
         defineField({
@@ -286,18 +307,27 @@ const portfolio = defineType({
                   name: 'role',
                   type: 'string',
                   title: 'Role',
+                  placeholder: 'UX UI Designer',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
                   name: 'time',
                   type: 'string',
                   title: 'Time',
+                  placeholder: 'Nov, 2024 - Presente',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
-                  name: 'subtitle',
+                  name: 'current',
+                  type: 'boolean',
+                  title: 'Currently working here',
+                  description: 'Mark if you are currently working here',
+                }),
+                defineField({
+                  name: 'company',
                   type: 'string',
-                  title: 'Subtitle',
+                  title: 'Company',
+                  placeholder: 'Zira',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
@@ -307,6 +337,17 @@ const portfolio = defineType({
                   of: [
                     defineArrayMember({
                       type: 'block',
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: 'skills',
+                  type: 'array',
+                  title: 'Skills',
+                  description: 'Skills used/improved/learned in this experience',
+                  of: [
+                    defineArrayMember({
+                      type: 'string',
                     }),
                   ],
                 }),
@@ -348,6 +389,20 @@ const portfolio = defineType({
               ],
             }),
           ],
+        }),
+        defineField({
+          name: 'quote',
+          type: 'string',
+          title: 'Quote',
+          description: 'This will be displayed next to the experience list on desktop. It could be motivational or a quote from the experience.',
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'quoteAuthor',
+          type: 'string',
+          title: 'Quote Author',
+          description: 'This will be displayed next to the experience list on desktop. It will be displayed as "- Author".',
+          validation: (Rule) => Rule.required(),
         }),
       ],
     }),
@@ -432,17 +487,19 @@ const portfolio = defineType({
               type: 'object',
               fields: [
                 defineField({
-                  name: 'number',
+                  name: 'label',
                   type: 'string',
                   placeholder: '5+',
-                  title: 'Number',
+                  title: 'Label',
+                  description: 'This the bigger text of the stat',
                   validation: (Rule) => Rule.required(),
                 }),
                 defineField({
-                  name: 'label',
+                  name: 'text',
                   type: 'string',
-                  title: 'Label',
+                  title: 'Text',
                   placeholder: 'Years of experience',
+                  description: 'This the smaller text of the stat',
                   validation: (Rule) => Rule.required(),
                 }),
               ],

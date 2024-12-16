@@ -14,7 +14,7 @@ const config = defineConfig({
   title: 'Centro de Links - Genesis Rivero - Sanity.io',
   
   projectId: 'l2ne4htk',
-  dataset: 'production',
+  dataset: 'development',
 
   plugins: [structureTool(), visionTool()],
 

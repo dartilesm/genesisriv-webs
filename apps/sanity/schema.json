@@ -390,6 +390,13 @@
           "type": "string"
         }
       },
+      "title": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "header": {
         "type": "objectAttribute",
         "value": {
@@ -586,7 +593,21 @@
               },
               "optional": true
             },
+            "currentStatus": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
             "title": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "role": {
               "type": "objectAttribute",
               "value": {
                 "type": "string"
@@ -1597,7 +1618,14 @@
                       },
                       "optional": true
                     },
-                    "subtitle": {
+                    "current": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "boolean"
+                      },
+                      "optional": true
+                    },
+                    "company": {
                       "type": "objectAttribute",
                       "value": {
                         "type": "string"
@@ -1783,6 +1811,16 @@
                       },
                       "optional": true
                     },
+                    "skills": {
+                      "type": "objectAttribute",
+                      "value": {
+                        "type": "array",
+                        "of": {
+                          "type": "string"
+                        }
+                      },
+                      "optional": true
+                    },
                     "cta": {
                       "type": "objectAttribute",
                       "value": {
@@ -1895,6 +1933,20 @@
                     }
                   }
                 }
+              },
+              "optional": true
+            },
+            "quote": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "quoteAuthor": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
               },
               "optional": true
             }
@@ -2332,14 +2384,14 @@
                 "of": {
                   "type": "object",
                   "attributes": {
-                    "number": {
+                    "label": {
                       "type": "objectAttribute",
                       "value": {
                         "type": "string"
                       },
                       "optional": true
                     },
-                    "label": {
+                    "text": {
                       "type": "objectAttribute",
                       "value": {
                         "type": "string"

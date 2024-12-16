@@ -80,6 +80,7 @@ export type Portfolio = {
   _createdAt: string
   _updatedAt: string
   _rev: string
+  title?: string
   header?: {
     logo?: {
       asset?: {
@@ -113,7 +114,9 @@ export type Portfolio = {
       alt?: string
       _type: 'image'
     }
+    currentStatus?: string
     title?: string
+    role?: string
     description?: Array<{
       children?: Array<{
         marks?: Array<string>
@@ -228,7 +231,8 @@ export type Portfolio = {
     experienceList?: Array<{
       role?: string
       time?: string
-      subtitle?: string
+      current?: boolean
+      company?: string
       description?: Array<{
         children?: Array<{
           marks?: Array<string>
@@ -247,6 +251,7 @@ export type Portfolio = {
         _type: 'block'
         _key: string
       }>
+      skills?: Array<string>
       cta?: {
         label?: string
         url?: string
@@ -266,6 +271,8 @@ export type Portfolio = {
       _type: 'experience'
       _key: string
     }>
+    quote?: string
+    quoteAuthor?: string
   }
   about?: {
     title?: Array<{
@@ -314,8 +321,8 @@ export type Portfolio = {
       url?: string
     }
     stats?: Array<{
-      number?: string
       label?: string
+      text?: string
       _key: string
     }>
   }
