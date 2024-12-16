@@ -66,7 +66,11 @@ function getIcon(icon: string) {
   >
     {/* Content */}
     <div class='relative'>
-      <Tag class='mb-8' label='Available for projects' variant='purple' outlined />
+      {
+        data?.currentStatus && (
+          <Tag class='mb-8' label={data?.currentStatus} variant='purple' outlined />
+        )
+      }
 
       {/* Title and Description */}
       <div class='flex flex-col'>
@@ -88,7 +92,7 @@ function getIcon(icon: string) {
             <span
               class='bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-600 text-transparent bg-clip-text uppercase tracking-wider'
             >
-              UX UI Designer
+              {data?.role}
             </span>
             <div
               class='h-px w-full bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0'
