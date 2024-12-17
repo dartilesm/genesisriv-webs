@@ -5,7 +5,7 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
-    "predev": "sanity schema extract && sanity typegen generate",
+    "predev": "sanity schema extract --workspace development && sanity typegen generate",
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
