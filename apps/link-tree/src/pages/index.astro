@@ -1,8 +1,9 @@
 ---
-import ButtonListAlt from "@/components/button-list-alt.astro";
+import ButtonListHorizontal from "@/components/button-list-horizontal.astro";
 import ProfileAlt from "@/components/profile-alt.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
+import Tag from "@repo/ui/src/tag.astro";
 import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 
 const {
@@ -19,10 +20,18 @@ const {
 ---
 
 <RootLayout className='space-y-8 py-12' metadata={linkTreeMetadata}>
+  {
+    siteData?.currentStatus && (
+      <div class='flex flex-col gap-2'>
+        <Tag label={siteData?.currentStatus} class='self-center' />
+      </div>
+    )
+  }
+
   <ProfileAlt data={siteData} />
 
   {/* Main Links */}
-  <div class='space-y-3 flex flex-col gap-2'>
-    <ButtonListAlt links={siteData?.links} />
+  <div class='space-y-8'>
+    <ButtonListHorizontal links={siteData?.links} />
   </div>
 </RootLayout>
