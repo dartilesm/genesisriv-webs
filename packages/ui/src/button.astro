@@ -4,7 +4,7 @@ interface Props {
   target?: string;
   as?: "button" | "a";
   type?: "button" | "submit" | "reset";
-  variant?: "primary" | "secondary" | "icon";
+  variant?: "primary" | "secondary" | "tertiary" | "ghost" | "icon";
   class?: string;
 }
 
@@ -24,6 +24,10 @@ const variants = {
     "text-white bg-purple-700 hover:bg-purple-800 focus:ring-blue-300 dark:focus:ring-blue-900",
   secondary:
     "text-purple-700 bg-transparent hover:bg-purple-700 ring-1 ring-purple-700 hover:text-white focus:ring-purple-300 dark:focus:ring-purple-900",
+  tertiary:
+    "text-black dark:text-violet-300 hover:text-purple-600 dark:hover:text-purple-400 bg-violet-300 dark:bg-violet-900 hover:bg-purple-50 dark:hover:bg-purple-950/50 border border-violet-200 dark:border-violet-700 hover:border-purple-200 dark:hover:border-purple-800 focus:ring-purple-100 dark:focus:ring-purple-900/30 transition-all duration-300",
+  ghost:
+    "text-gray-600 dark:text-gray-300 hover:text-purple-600 dark:hover:text-purple-400 bg-transparent hover:bg-purple-50/50 dark:hover:bg-purple-900/20 focus:ring-0 transition-all duration-300 backdrop-blur-sm",
   icon: "hover:text-purple-700 p-0 transition-colors hover:scale-110 transition-transform duration-300",
 };
 ---
