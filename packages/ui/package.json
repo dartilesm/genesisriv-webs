@@ -3,10 +3,16 @@
     "version": "0.0.0",
     "private": true,
     "exports": {
-        "./button": "./src/button.astro",
-        "./tag": "./src/tag.astro",
-        "./strong-text": "./src/strong-text.astro",
-        "./icons/*": "./src/icons/*"
+        "./button": {
+            "default": "./src/button.astro"
+        },
+        "./tag": {
+            "default": "./src/tag.astro"
+        },
+        "./strong-text": {
+            "default": "./src/strong-text.astro"
+        },
+        "./src/*": "./src/*"
     },
     "dependencies": {
         "@astrojs/tailwind": "^5.0.0",
