@@ -1,14 +1,14 @@
 ---
+import Button from "@repo/ui/src/button.astro";
+import Tag from "@repo/ui/src/tag.astro";
 import { Portfolio } from "@sanity-app/sanity.types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Icon } from "astro-icon/components";
 import { PortableText } from "astro-portabletext";
 import { Image } from "astro:assets";
-import Button from "./ui/button.astro";
 import Container from "./ui/container.astro";
 import Section from "./ui/section.astro";
-import Tag from "./ui/tag.astro";
 
 type Props = {
   data: Portfolio["presentation"];
