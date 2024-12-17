@@ -491,6 +491,7 @@ export type LinkTree = {
     _type: 'block'
     _key: string
   }>
+  currentStatus?: string
   links?: Array<{
     name?: string
     url?: string

@@ -42,6 +42,12 @@ const linkTree = defineType({
       ],
     }),
     defineField({
+      name: 'currentStatus',
+      type: 'string',
+      title: 'Current Status',
+      placeholder: 'Disponible para trabajar',
+    }),
+    defineField({
       name: 'links',
       type: 'array',
       title: 'Links',
