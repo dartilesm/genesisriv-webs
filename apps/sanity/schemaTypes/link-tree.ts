@@ -33,8 +33,13 @@ const linkTree = defineType({
     }), 
     defineField({
       name: 'description',
-      type: 'text',
-      title: 'Description'
+      type: 'array',
+      title: 'Description',
+      of: [
+        defineArrayMember({
+          type: 'block',
+        }),
+      ],
     }),
     defineField({
       name: 'links',
@@ -106,6 +111,47 @@ const linkTree = defineType({
                 })
               ]
             }),
+          ]
+        })
+      ]
+    }),
+    defineField({
+      name: 'quickLinks',
+      type: 'array',
+      title: 'Quick Links',
+      of: [
+        defineField({
+          name: 'link',
+          type: 'object',
+          title: 'Link',
+          fields: [
+            defineField({
+              name: 'name',
+              type: 'string',
+              title: 'Name',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: 'url',
+              type: 'string',
+              title: 'URL',
+              validation: (Rule) => Rule.required()
+            }),
+            defineField({
+              name: 'isIconButton',
+              type: 'boolean',
+              title: 'Is Icon Button',
+              initialValue: false
+            }),
+            defineField({
+              name: 'icon',
+              type: 'string',
+              title: 'Icon',
+              hidden: ({ parent }) => !parent?.isIconButton,
+              options: {
+                list: ['website', 'email', 'linkedin', 'instagram', 'x']
+              }
+            })
           ]
         })
       ]
