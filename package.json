@@ -23,7 +23,8 @@
     "concurrently": "8.2.0"
   },
   "workspaces": [
-    "apps/*"
+    "apps/*",
+    "packages/*"
   ],
   "private": true,
   "dependencies": {
