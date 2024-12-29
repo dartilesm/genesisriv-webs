@@ -71,52 +71,6 @@ const linkTree = defineType({
                 scheme: ['http', 'https', 'mailto', 'tel'],
               }).required()
             }),
-            defineField({
-              name: 'ariaLabel',
-              type: 'string',
-              title: 'Aria Label',
-              validation: (Rule) => Rule.required()
-            })
-          ]
-        })
-      ]
-    }),
-    defineField({
-      name: 'iconLinks',
-      type: 'object',
-      title: 'Icon Links',
-      fields: [
-        defineField({
-          name: 'title',
-          type: 'string',
-          title: 'Title',
-          validation: (Rule) => Rule.required()
-        }),
-        defineField({
-          name: 'links',
-          type: 'array',
-          title: 'Links',
-          of: [
-            defineArrayMember({
-              name: 'icon',
-              type: 'image',
-              title: 'Icon',
-              validation: (Rule) => Rule.required(),
-              fields: [
-                defineField({
-                  name: 'ariaLabel',
-                  type: 'string',
-                  title: 'Aria Label',
-                  validation: (Rule) => Rule.required()
-                }),
-                defineField({
-                  name: 'url',
-                  type: 'url',
-                  title: 'URL',
-                  validation: (Rule) => Rule.required()
-                })
-              ]
-            }),
           ]
         })
       ]
@@ -161,6 +115,120 @@ const linkTree = defineType({
           ]
         })
       ]
+    }),
+    defineField({
+      name: 'additionalLinks',
+      type: 'object',
+      title: 'More Links',
+      fields: [
+        defineField({
+          name: 'mainButtonLabel',
+          type: 'string',
+          title: 'Main Button Label',
+          placeholder: '¿Qué recursos uso?',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          name: 'mainButtonUrl',
+          type: 'string',
+          title: 'Main Button URL',
+          placeholder: '/links',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          name: 'links',
+          type: 'array',
+          title: 'Additional Links',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              fields: [
+                defineField({
+                  name: 'icon',
+                  type: 'string',
+                  title: 'Icon',
+                  options: {
+                    list: ['resources']
+                  }
+                }),
+                defineField({
+                  name: 'name',
+                  type: 'string',
+                  title: 'Name',
+                  placeholder: 'Mis recursos',
+                  validation: (Rule) => Rule.required()
+                }),
+                defineField({
+                  name: 'description',
+                  type: 'array',
+                  title: 'Description',
+                  of: [
+                    defineArrayMember({
+                      type: 'block',
+                    }),
+                  ],
+                }),
+                defineField({
+                  name: 'links',
+                  type: 'array',
+                  title: 'Links',
+                  of: [
+                    defineArrayMember({
+                      type: 'object',
+                      fields: [
+                        defineField({
+                          name: 'type',
+                          type: 'string',
+                          title: 'Type',
+                          options: {
+                            list: ['button', 'card']
+                          }
+                        }),
+                        defineField({
+                          name: 'name',
+                          type: 'string',
+                          title: 'Name or Title',
+                          validation: (Rule) => Rule.required()
+                        }),
+                        defineField({
+                          name: 'description',
+                          type: 'array',
+                          title: 'Description',
+                          hidden: ({ parent }) => parent?.type === 'button',
+                          of: [
+                            defineArrayMember({
+                              type: 'block',
+                            }),
+                          ],
+                        }),
+                        defineField({
+                          name: 'label',
+                          type: 'string',
+                          title: 'Label',
+                          placeholder: 'Recurso recomendado',
+                          hidden: ({ parent }) => parent?.type === 'button',
+                        }),
+                        defineField({
+                          name: 'url',
+                          type: 'string',
+                          title: 'URL',
+                          validation: (Rule) => Rule.required()
+                        }),
+                        defineField({
+                          name: 'image',
+                          type: 'image',
+                          title: 'Image',
+                        })
+                      ]
+                    }),
+                  ],
+                })
+              ]
+            })
+          ]
+        })
+      ]
+
     })
   ]
 })

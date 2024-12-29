@@ -495,27 +495,9 @@ export type LinkTree = {
   links?: Array<{
     name?: string
     url?: string
-    ariaLabel?: string
     _type: 'link'
     _key: string
   }>
-  iconLinks?: {
-    title?: string
-    links?: Array<{
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      ariaLabel?: string
-      url?: string
-      _type: 'icon'
-      _key: string
-    }>
-  }
   quickLinks?: Array<{
     name?: string
     url?: string
@@ -524,6 +506,69 @@ export type LinkTree = {
     _type: 'link'
     _key: string
   }>
+  additionalLinks?: {
+    mainButtonLabel?: string
+    mainButtonUrl?: string
+    links?: Array<{
+      icon?: 'resources'
+      name?: string
+      description?: Array<{
+        children?: Array<{
+          marks?: Array<string>
+          text?: string
+          _type: 'span'
+          _key: string
+        }>
+        style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+        listItem?: 'bullet' | 'number'
+        markDefs?: Array<{
+          href?: string
+          _type: 'link'
+          _key: string
+        }>
+        level?: number
+        _type: 'block'
+        _key: string
+      }>
+      links?: Array<{
+        type?: 'button' | 'card'
+        name?: string
+        description?: Array<{
+          children?: Array<{
+            marks?: Array<string>
+            text?: string
+            _type: 'span'
+            _key: string
+          }>
+          style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+          listItem?: 'bullet' | 'number'
+          markDefs?: Array<{
+            href?: string
+            _type: 'link'
+            _key: string
+          }>
+          level?: number
+          _type: 'block'
+          _key: string
+        }>
+        label?: string
+        url?: string
+        image?: {
+          asset?: {
+            _ref: string
+            _type: 'reference'
+            _weak?: boolean
+            [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+          }
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          _type: 'image'
+        }
+        _key: string
+      }>
+      _key: string
+    }>
+  }
 }
 
 export type SanityImageCrop = {
