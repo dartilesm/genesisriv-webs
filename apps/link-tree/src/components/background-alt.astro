@@ -1,8 +1,3 @@
----
-let scrollPosition = 0;
-let translateY = 0;
----
-
 <div class='fixed w-screen -z-10 top-0 left-0' style='height: 100vh;'>
   <div class='relative w-screen h-[100dvh] overflow-hidden' style='height: 100vh;'>
     <div
@@ -13,12 +8,10 @@ let translateY = 0;
 
     <div
       class='absolute h-[50em] w-[50em] bg-purple-500 rounded-full -top-64 -left-64 opacity-5 will-change-transform'
-      style={`transform: translateY(-${scrollPosition}px)`}
     >
     </div>
     <div
       class='absolute h-[25em] w-[25em] bg-purple-500 rounded-full -bottom-64 -right-64 opacity-10 will-change-transform'
-      style={`transform: translateY(-${scrollPosition}px)`}
     >
     </div>
   </div>
@@ -27,27 +20,15 @@ let translateY = 0;
   <div class='fixed h-full w-full -z-10'>
     <div
       class='absolute h-10 w-10 left-5 bg-purple-500 rounded-full opacity-10 will-change-transform'
-      style={`transform: translateY(${translateY}px)`}
     >
     </div>
     <div
       class='absolute h-20 w-20 left-20 bottom-10 bg-purple-500 rounded-full opacity-10 will-change-transform'
-      style={`transform: translateY(${translateY}px)`}
     >
     </div>
     <div
       class='absolute h-28 w-28 right-24 -bottom-12 bg-purple-500 rounded-full opacity-5 will-change-transform'
-      style={`transform: translateY(${translateY * 1.5}px)`}
     >
     </div>
   </div>
 </div>
-
-<script define:vars={{ scrollPosition, translateY }}>
-  function handleScrollChange() {
-    scrollPosition = window.scrollY;
-    translateY = scrollPosition * -0.05;
-  }
-
-  window.addEventListener("scroll", handleScrollChange);
-</script>

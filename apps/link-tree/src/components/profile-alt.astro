@@ -86,7 +86,11 @@ const { data } = Astro.props;
         )
       }
     </div>
-    <RichText class='font-light [&>strong]:font-bold' value={data.description} />
+    <RichText
+      class='font-light [&>strong]:font-bold'
+      transitionName='description'
+      value={data.description}
+    />
   </div>
 
   {/* Quick Action Buttons */}
