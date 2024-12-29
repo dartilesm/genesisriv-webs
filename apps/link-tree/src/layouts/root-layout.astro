@@ -6,8 +6,12 @@ import BackgroundAlt from "@/components/background-alt.astro";
 import PlausibleScript from "@/scripts/plausible.astro";
 import type { Metadata } from "@sanity-app/sanity.types";
 
-const { className, metadata } = Astro.props as {
+import { cn } from "@/utils/cn";
+import { ClientRouter } from "astro:transitions";
+
+const { className, bodyClassName, metadata } = Astro.props as {
   className: string;
+  bodyClassName?: string;
   metadata: Metadata;
 };
 
@@ -49,11 +53,15 @@ const { url } = Astro;
     <script defer src='/js/pirsch.js' id='pianjs' data-code='BKRPchjbEg0wvHGEPZolz925oZHpl9q7'
     ></script>
     <PlausibleScript />
+    <ClientRouter />
   </head>
   <body
-    class='p-4 sm:p-2 flex justify-center items-center m-auto min-h-screen min-h-[100dvh] max-w-full w-screen font-sans'
+    class={cn(
+      "p-4 max-sm:p-2 flex justify-center items-center m-auto min-h-[100dvh] max-w-full w-screen font-sans",
+      bodyClassName
+    )}
   >
-    <main class=`w-full max-w-[456px] ${className} py-8`>
+    <main class={cn(`w-full max-w-[456px] py-8`, className)}>
       <BackgroundAlt />
       <slot class='z-10' />
     </main>

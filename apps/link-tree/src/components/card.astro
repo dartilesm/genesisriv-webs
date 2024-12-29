@@ -1,0 +1,84 @@
+---
+import ExternalIcon from "@repo/ui/src/assets/icons/external-link.svg";
+import RichText from "@repo/ui/src/rich-text/rich-text.astro";
+import Tag from "@repo/ui/src/tag.astro";
+import type { HTMLTag, Polymorphic } from "astro/types";
+
+type Props<Tag extends HTMLTag> = Polymorphic<{
+  as: Tag;
+  title: string;
+  subtitle?: Astro.JSX.Element;
+  image?: string;
+  imageAlt?: string;
+  badge?: string;
+}>;
+
+const {
+  as: ComponentTag = "div",
+  title,
+  subtitle,
+  image,
+  imageAlt = "",
+  badge,
+  class: className,
+  ...props
+} = Astro.props;
+---
+
+<ComponentTag
+  class:list={[
+    "group relative overflow-hidden rounded-3xl bg-white/40 dark:bg-gray-800/40 border border-gray-200/20 hover:bg-white/60 dark:hover:bg-gray-800/60 transition-all duration-300",
+    className,
+  ]}
+  {...props}
+>
+  {/* Card Content */}
+  <div class='flex h-full flex-col'>
+    <div class='p-6 flex flex-col gap-4'>
+      {/* Header */}
+      <div
+        class:list={[
+          "flex flex-row items-start",
+          {
+            "justify-between": badge,
+            "justify-end": !badge,
+          },
+        ]}
+      >
+        {/* Badge */}
+        {badge && <Tag label={badge} outlined showDot={false} />}
+
+        {/* External Link Icon */}
+        <div
+          class='flex h-12 w-12 items-center justify-center rounded-2xl bg-gray-200/30 duration-300 transition-all'
+        >
+          <ExternalIcon class='h-4 w-4 text-gray-600' />
+        </div>
+      </div>
+
+      {/* Text Content */}
+      <div class='flex flex-col gap-1'>
+        <h3 class='text-xl font-semibold text-slate-800 group-hover:text-purple-600'>{title}</h3>
+        {
+          subtitle && (
+            <RichText class='font-light [&>strong]:font-bold text-slate-600' value={subtitle} />
+          )
+        }
+      </div>
+
+      {/* Additional Content */}
+      <slot />
+    </div>
+
+    {/* Image */}
+    {
+      image && (
+        <div class='p-2'>
+          <div class='relative aspect-[16/9] overflow-hidden rounded-2xl border-purple-500/10 border-2'>
+            <img src={image} alt={imageAlt} class='h-full w-full object-cover' />
+          </div>
+        </div>
+      )
+    }
+  </div>
+</ComponentTag>

@@ -7,9 +7,11 @@ import XIcon from "@repo/ui/src/assets/icons/x.svg";
 import Button from "@repo/ui/src/button.astro";
 import RichText from "@repo/ui/src/rich-text/rich-text.astro";
 import type { LinkTree } from "@sanity-app/sanity.types";
+
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { Image } from "astro:assets";
+
 type Props = {
   data: LinkTree;
 };
@@ -50,7 +52,7 @@ const { data } = Astro.props;
     </div>
   </div>
   {/* Profile Image */}
-  <div class='max-w-md'>
+  <div class='max-w-md' transition:name='image'>
     <Image
       src={sanitizeImage(data.photo as SanityImageSource, { format: "webp" }).url()}
       alt={data.photo?.alt || "Profile"}
@@ -62,7 +64,7 @@ const { data } = Astro.props;
   {/* Profile Info */}
   <div class='flex flex-col gap-4 text-center'>
     <div class='flex flex-col gap-1'>
-      <h1 class='text-5xl font-bold text-gray-900'>
+      <h1 class='text-5xl font-bold text-gray-900' transition:name='heading'>
         <span
           class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
         >
@@ -70,20 +72,19 @@ const { data } = Astro.props;
         </span>
       </h1>
       {/* Job Title */}
-      <div class='relative'>
-        {/* Design Vector - Paint Brush */}
-        <h2 class='text-lg font-medium relative inline-flex flex-col'>
-          <span
-            class='bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-600 text-transparent bg-clip-text uppercase tracking-wider'
-          >
-            {data?.role}
-          </span>
-          <div
-            class='h-px w-full bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0'
-          >
+      {
+        data?.role && (
+          <div class='relative'>
+            {/* Design Vector - Paint Brush */}
+            <h2 class='text-lg font-medium relative inline-flex flex-col'>
+              <span class='bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-600 text-transparent bg-clip-text uppercase tracking-wider'>
+                {data?.role}
+              </span>
+              <div class='h-px w-full bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0' />
+            </h2>
           </div>
-        </h2>
-      </div>
+        )
+      }
     </div>
     <RichText class='font-light [&>strong]:font-bold' value={data.description} />
   </div>

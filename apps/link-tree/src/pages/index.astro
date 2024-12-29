@@ -1,8 +1,9 @@
 ---
-import ButtonListHorizontal from "@/components/button-list-horizontal.astro";
+import ButtonListVertical from "@/components/button-list-vertical.astro";
 import ProfileAlt from "@/components/profile-alt.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
+import Button from "@repo/ui/src/button.astro";
 import Tag from "@repo/ui/src/tag.astro";
 import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 
@@ -32,6 +33,25 @@ const {
 
   {/* Main Links */}
   <div class='space-y-8'>
-    <ButtonListHorizontal links={siteData?.links} />
+    <ButtonListVertical links={siteData?.links} />
+  </div>
+
+  {/* View All Links Button */}
+  <div class='flex justify-center mt-8'>
+    <Button as='a' href='/links' variant='secondary' class='group text-sm'>
+      <span class='flex items-center gap-2'>
+        ¿Qué recursos uso?
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          class='h-4 w-4 transition-transform group-hover:translate-x-1'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+        >
+          <path d='M5 12h14M12 5l7 7-7 7'></path>
+        </svg>
+      </span>
+    </Button>
   </div>
 </RootLayout>
