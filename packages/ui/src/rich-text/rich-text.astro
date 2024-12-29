@@ -5,9 +5,13 @@ import CustomList from "./custom-list.astro";
 
 type Props = PortableTextProps & {
   class?: string;
+  id?: string;
+  transitionName?: string;
 };
 
-const { value, class: className = "", ...props } = Astro.props;
+const { value, class: className = "", id, transitionName, ...props } = Astro.props;
 ---
 
-<PortableText value={value} {...props} class={className} components={{ list: CustomList }} />
+<div transition:name={transitionName} id={id}>
+  <PortableText value={value} {...props} class={className} components={{ list: CustomList }} />
+</div>
