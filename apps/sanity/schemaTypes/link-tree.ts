@@ -136,6 +136,23 @@ const linkTree = defineType({
           validation: (Rule) => Rule.required()
         }),
         defineField({
+          name: 'pageTitle',
+          type: 'string',
+          title: 'Page title',
+          placeholder: 'Mis recursos',
+          validation: (Rule) => Rule.required()
+        }),
+        defineField({
+          name: 'pageDescription',
+          type: 'array',
+          title: 'Page description',
+          of: [
+            defineArrayMember({
+              type: 'block',
+            }),
+          ],
+        }),
+        defineField({
           name: 'links',
           type: 'array',
           title: 'Additional Links',
@@ -144,11 +161,19 @@ const linkTree = defineType({
               type: 'object',
               fields: [
                 defineField({
+                  name: 'slug',
+                  type: 'string',
+                  title: 'Slug',
+                  placeholder: 'recursos',
+                  description: 'This slug will be used to generate the URL for the link tree page. For example, if the slug is "recursos", the URL will be "https://genesisriv.link/l/recursos".',
+                  validation: (Rule) => Rule.required()
+                }),
+                defineField({
                   name: 'icon',
                   type: 'string',
                   title: 'Icon',
                   options: {
-                    list: ['resources']
+                    list: ['resources', 'link', 'book', 'course']
                   }
                 }),
                 defineField({
