@@ -33,14 +33,19 @@ const {
 
   {/* Main Links */}
   <div class='space-y-8'>
-    <ButtonListVertical links={siteData?.links} />
+    <ButtonListVertical links={siteData?.links} transitionName='button-list' />
   </div>
 
   {/* View All Links Button */}
   <div class='flex justify-center mt-8'>
-    <Button as='a' href='/links' variant='secondary' class='group text-sm'>
+    <Button
+      as='a'
+      href={siteData?.additionalLinks?.mainButtonUrl}
+      variant='ghost'
+      class='group text-sm'
+    >
       <span class='flex items-center gap-2'>
-        ¿Qué recursos uso?
+        {siteData?.additionalLinks?.mainButtonLabel}
         <svg
           xmlns='http://www.w3.org/2000/svg'
           class='h-4 w-4 transition-transform group-hover:translate-x-1'

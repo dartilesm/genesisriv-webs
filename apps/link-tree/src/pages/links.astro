@@ -1,8 +1,11 @@
 ---
-import LinksContainer from "@/components/links-container.astro";
+import CardList from "@/components/card-list.astro";
 import LinksHeadingAndIcon from "@/components/links-heading-and-icon.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
+import ArrowRightIcon from "@repo/ui/src/assets/icons/arrow-right.svg";
+import Button from "@repo/ui/src/button.astro";
+import ResourceIcon from "@repo/ui/src/assets/icons/bulk/resource.svg";
 import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 const {
   data: [siteData],
@@ -16,20 +19,17 @@ const {
   query: `*[_type == "metadata"]`,
 });
 
-let isMainHeadingInView = false;
+console.log(siteData["additionalLinks"]?.links);
 ---
 
 <RootLayout className='space-y-0 py-0' bodyClassName='items-start' metadata={linkTreeMetadata}>
   <div class='w-full max-w-xl mx-auto flex flex-col gap-4 min-h-[calc(100vh-2rem)]'>
     {/* Header with back button */}
     <header
-      class='flex items-center py-2 sticky top-0 z-10 gap-2 transition-all duration-300 ease-in-out group data-[visible=true]:bg-white -mx-2 data-[visible=true]:border-b data-[visible=true]:border-purple-100'
+      class='flex items-center p-2 sticky top-0 z-10 gap-2 transition-all duration-300 ease-in-out group data-[visible=true]:bg-white -mx-2 data-[visible=true]:border-b data-[visible=true]:border-purple-100 h-11'
       id='header'
     >
-      <a
-        href='/'
-        class='inline-flex items-center justify-center w-8 h-8 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-full transition-all ml-2'
-      >
+      <Button as='a' variant='icon' href='/'>
         <title>Back button</title>
         <svg
           xmlns='http://www.w3.org/2000/svg'
@@ -41,15 +41,56 @@ let isMainHeadingInView = false;
         >
           <path d='M15 19l-7-7 7-7'></path>
         </svg>
-      </a>
+      </Button>
       <LinksHeadingAndIcon
-        data={siteData?.additionalLinks?.links?.[0]}
+        data={{
+          name: siteData["additionalLinks"]?.pageTitle,
+          description: siteData["additionalLinks"]?.pageDescription,
+          icon: "link",
+          _key: "123",
+        }}
         isInNav
         className='transition-[opacity,_margin] duration-200 opacity-0 group-data-[visible=true]:opacity-100 ease-in-out'
       />
     </header>
-
-    <LinksContainer data={siteData?.additionalLinks?.links?.[0]} />
+    <div class='flex flex-col gap-8'>
+      <LinksHeadingAndIcon
+        data={{
+          name: siteData["additionalLinks"]?.pageTitle,
+          description: siteData["additionalLinks"]?.pageDescription,
+          icon: "link",
+          _key: "123",
+        }}
+        id='page-heading-container'
+      />
+      <div class='flex-1 flex flex-col w-full gap-4'>
+        {
+          siteData["additionalLinks"]?.links?.map((link) => (
+            <>
+              <section class='space-y-6'>
+                <header
+                  class='flex items-center justify-between top-11 sticky z-10 p-2 data-[is-stuck=true]:bg-white data-[is-stuck=true]:border-b [data-is-stuck=true]:border-purple-100 -mx-2 transition-all duration-300 ease-in-out'
+                  data-section-header
+                >
+                  <h2 class='text-xl font-semibold text-gray-900 inline-flex flex-row items-center gap-2'>
+                    <ResourceIcon class='w-5 h-5 text-purple-600' />
+                    {link.name}
+                  </h2>
+                  <a
+                    href={`/l/${link.slug}`}
+                    class='text-md text-purple-600 hover:text-purple-700 font-medium transition-colors inline-flex flex-row justify-between items-center gap-2'
+                  >
+                    Ver todo
+                    <ArrowRightIcon class='w-3 h-3' />
+                  </a>
+                </header>
+                <CardList items={link.links.slice(0, 3)} />
+              </section>
+            </>
+          ))
+        }
+      </div>
+    </div>
   </div>
 </RootLayout>
 
@@ -77,6 +118,21 @@ let isMainHeadingInView = false;
       return () => {
         header.setAttribute("data-visible", "true");
       };
+    });
+
+    // Add event listener to the section headers to check if the section is stuck
+    const sectionHeaders = document.querySelectorAll("[data-section-header]");
+
+    sectionHeaders.forEach((sectionHeader) => {
+      function setStickyState() {
+        const isStuck =
+          sectionHeader.getBoundingClientRect().top > 0 &&
+          sectionHeader.getBoundingClientRect().top <= 44;
+        console.log(isStuck);
+        sectionHeader.setAttribute("data-is-stuck", isStuck.toString());
+      }
+
+      window.addEventListener("scroll", setStickyState);
     });
   }
 
