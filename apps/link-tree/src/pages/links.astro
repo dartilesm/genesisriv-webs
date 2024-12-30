@@ -1,5 +1,6 @@
 ---
 import LinksContainer from "@/components/links-container.astro";
+import LinksHeadingAndIcon from "@/components/links-heading-and-icon.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
 import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
@@ -19,10 +20,13 @@ const {
 <RootLayout className='space-y-0 py-0' bodyClassName='items-start' metadata={linkTreeMetadata}>
   <div class='w-full max-w-xl mx-auto flex flex-col gap-4 min-h-[calc(100vh-2rem)]'>
     {/* Header with back button */}
-    <div class='flex items-center py-2 sticky top-0 bg-white/90 z-10'>
+    <header
+      class='flex items-center py-2 sticky top-0 z-10 gap-2 transition-all duration-300 ease-in-out group data-[visible=true]:bg-white -mx-2'
+      id='header'
+    >
       <a
         href='/'
-        class='inline-flex items-center justify-center w-8 h-8 mr-4 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-full transition-all'
+        class='inline-flex items-center justify-center w-8 h-8 text-gray-600 hover:text-purple-600 hover:bg-purple-50 rounded-full transition-all ml-2'
       >
         <title>Back button</title>
         <svg
@@ -36,14 +40,45 @@ const {
           <path d='M15 19l-7-7 7-7'></path>
         </svg>
       </a>
-    </div>
+      <LinksHeadingAndIcon
+        data={siteData?.additionalLinks?.links?.[0]}
+        isInNav
+        className='transition-[opacity,_margin] duration-200 opacity-0 group-data-[visible=true]:opacity-100 ease-in-out'
+      />
+    </header>
 
     <LinksContainer data={siteData?.additionalLinks?.links?.[0]} />
   </div>
 </RootLayout>
 
-<script define:vars={{ siteData }}>
-  document.addEventListener("astro:page-load", () => {
-    console.log(siteData);
-  });
+<script>
+  import { inView } from "motion";
+
+  function onPageLoad() {
+    const mainHeadingOfThePage = document.getElementById("page-heading-container");
+    const header = document.getElementById("header");
+
+    if (!mainHeadingOfThePage || !header) return;
+
+    // Check if the main heading is in view
+    const isMainHeadingInView =
+      mainHeadingOfThePage.getBoundingClientRect().height < window.scrollY;
+
+    if (isMainHeadingInView) {
+      header.setAttribute("data-visible", "true");
+    }
+
+    inView(mainHeadingOfThePage, () => {
+      // Set css var
+      header.setAttribute("data-visible", "false");
+      // Effect when target leaves viewport
+      return () => {
+        header.setAttribute("data-visible", "true");
+      };
+    });
+  }
+
+  onPageLoad();
+
+  document.addEventListener("astro:page-load", onPageLoad);
 </script>

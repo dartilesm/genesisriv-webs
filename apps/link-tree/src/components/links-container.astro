@@ -1,8 +1,8 @@
 ---
-import ResourceIcon from "@repo/ui/src/assets/icons/resource.svg";
 import RichText from "@repo/ui/src/rich-text/rich-text.astro";
 import type { LinkTree } from "@sanity-app/sanity.types";
 import CardList from "./card-list.astro";
+import LinksHeadingAndIcon from "./links-heading-and-icon.astro";
 
 type Props = {
   data: NonNullable<NonNullable<LinkTree["additionalLinks"]>["links"]>[number];
@@ -44,27 +44,7 @@ const { data } = Astro.props;
     </div>
   </div>
   {/* Page Icon & Heading */}
-  <div
-    class='flex flex-col gap-2 w-full justify-center items-center sticky top-3 z-20'
-    id='page-heading-container'
-  >
-    <div class='w-[100px] h-[100px] relative' transition:name='image' id='page-icon-container'>
-      <ResourceIcon class='text-purple-800 w-full h-full' id='page-icon' />
-    </div>
-    <div class='flex flex-col gap-1 relative w-full'>
-      <h1
-        class='text-5xl font-bold text-gray-900 text-center'
-        transition:name='heading'
-        id='page-heading'
-      >
-        <span
-          class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
-        >
-          {data?.name}
-        </span>
-      </h1>
-    </div>
-  </div>
+  <LinksHeadingAndIcon data={data} id='page-heading-container' />
 
   {/* Page Info */}
   <div class='flex flex-col gap-4 text-center'>
@@ -83,100 +63,3 @@ const { data } = Astro.props;
     <CardList items={data.links} />
   </div>
 </div>
-
-<script>
-  import { scroll, transform } from "motion";
-
-  function onPageLoad() {
-    console.log("rerun");
-
-    const getIconSize = transform([0, 1], [100, 24]);
-    const getIconLeftPosition = transform([0, 0.1, 0.9999, 1], [0, 0, -336, 0]);
-
-    const getHeadingSize = transform([0, 1], [3, 1.25]);
-    const getHeadingTopPosition = transform([0, 0.1, 0.9999, 1], [0, 0, -30, 0]);
-    const getHeadingLeftPosition = transform([0, 0.1, 0.9999, 1], [0, 0, 78, 0]);
-
-    const heading = document.getElementById("page-heading");
-    const headingSpan = heading?.querySelector("span");
-    const iconContainer = document.getElementById("page-icon-container");
-    const headingContainer = document.getElementById("page-heading-container");
-
-    if (!heading || !headingSpan || !iconContainer || !headingContainer) {
-      return;
-    }
-
-    function toggleStyles(progress: number) {
-      if (progress > 0.99) {
-        headingContainer.style.flexDirection = "row";
-        headingContainer.style.justifyContent = "flex-start";
-        headingContainer.style.marginLeft = "2.5rem";
-        headingContainer.style.width = `calc(100% - 2.5rem)`;
-        headingContainer.style.height = heading.style.textAlign = "left";
-
-        heading.style.marginLeft = "0";
-        headingSpan.style.marginLeft = "0";
-        /*       heading.style.position = "relative";
-            icon.style.position = "relative"; */
-        return;
-      }
-
-      headingContainer.style.flexDirection = "column";
-      headingContainer.style.justifyContent = "center";
-      headingContainer.style.marginLeft = "0";
-      headingContainer.style.width = "100%";
-      heading.style.textAlign = "center";
-
-      const spanWidth = headingSpan?.getBoundingClientRect().width ?? 0;
-      const headingWidth = heading?.getBoundingClientRect().width ?? 0;
-
-      const headingSpanMargingLeftClamp = Math.max(-headingWidth, spanWidth - headingWidth);
-      console.log({ headingSpanMargingLeftClamp, spanWidth, headingWidth });
-
-      const getHeadingSpanMarginLeft = transform([0, 1], [0, headingSpanMargingLeftClamp]);
-
-      heading.style.marginLeft = `calc(${getHeadingLeftPosition(progress)}px - ${0}px)`;
-      headingSpan.style.marginLeft = `calc(${getHeadingSpanMarginLeft(progress)}px)`;
-    }
-
-    function handleOnScroll(progress: number) {
-      console.log(progress);
-      const headingSize = getHeadingSize(progress);
-      const iconSize = getIconSize(progress);
-
-      if (heading) {
-        heading.style.fontSize = `${headingSize}rem`;
-        heading.parentElement.style.minHeight = `${headingSize}rem`;
-      }
-
-      if (iconContainer) {
-        iconContainer.style.width = `${iconSize}px`;
-        iconContainer.style.height = `${iconSize}px`;
-      }
-
-      /* icon.style.transform = `translateX(${getTranslateX(progress)}%)`; */
-      /* heading.style.transform = `translateX(${getHeadingTranslateX(progress)}%)`; */
-      iconContainer.style.marginLeft = `${getIconLeftPosition(progress)}px`;
-      heading.style.marginTop = `${getHeadingTopPosition(progress)}px`;
-
-      toggleStyles(progress);
-    }
-
-    console.log({
-      heading,
-      headingSpan,
-      iconContainer,
-      headingContainer,
-      window,
-      document,
-    });
-    scroll(handleOnScroll, {
-      offset: ["start 230px", "start 50px"],
-      target: document.getElementById("page-description"),
-    });
-  }
-
-  onPageLoad();
-
-  document.addEventListener("astro:page-load", onPageLoad);
-</script>

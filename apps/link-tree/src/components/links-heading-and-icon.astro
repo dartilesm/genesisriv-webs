@@ -1,0 +1,55 @@
+---
+import ResourceIcon from "@repo/ui/src/assets/icons/resource.svg";
+import type { LinkTree } from "@sanity-app/sanity.types";
+
+type Props = {
+  data: NonNullable<NonNullable<LinkTree["additionalLinks"]>["links"]>[number];
+  isInNav?: boolean;
+  id?: string;
+  className?: string;
+};
+
+const { data, isInNav = false, id, className } = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex gap-2 w-full",
+    {
+      "flex-col justify-center items-center": !isInNav,
+      "flex-row justify-start items-center": isInNav,
+    },
+    className,
+  ]}
+  id={id}
+>
+  <div
+    class:list={[
+      {
+        "w-[100px] h-[100px]": !isInNav,
+        "w-6 h-6": isInNav,
+      },
+    ]}
+    transition:name={!isInNav ? "image" : undefined}
+  >
+    <ResourceIcon class='text-purple-800 w-full h-full' />
+  </div>
+  <div class='flex flex-col gap-1 w-full'>
+    <h1
+      class:list={[
+        "font-bold text-gray-900 ",
+        {
+          "text-5xl text-center": !isInNav,
+          "text-xl text-left": isInNav,
+        },
+      ]}
+      transition:name={!isInNav ? "heading" : undefined}
+    >
+      <span
+        class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
+      >
+        {data?.name}
+      </span>
+    </h1>
+  </div>
+</div>
