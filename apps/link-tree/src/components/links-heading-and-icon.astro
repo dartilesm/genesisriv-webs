@@ -30,7 +30,6 @@ const { data, isInNav = false, id, className } = Astro.props;
         "w-6 h-6": isInNav,
       },
     ]}
-    transition:name={!isInNav ? "image" : undefined}
   >
     <ResourceIcon class='text-purple-800 w-full h-full' />
   </div>
@@ -43,7 +42,6 @@ const { data, isInNav = false, id, className } = Astro.props;
           "text-xl text-left": isInNav,
         },
       ]}
-      transition:name={!isInNav ? "heading" : undefined}
     >
       <span
         class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
