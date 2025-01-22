@@ -17,11 +17,11 @@ const { data } = Astro.props;
 ---
 
 <Section id='portfolio' heading={data?.title} description={data?.description}>
-  <Container class='flex flex-col gap-10'>
+  <Container class='flex flex-col gap-14'>
     {
       data?.projectsList?.map((project) => {
         return (
-          <div class='flex gap-10 flex-col items-center md:items-start md:flex-row'>
+          <div class='flex gap-12 flex-col items-center md:items-start md:flex-row'>
             <img
               src={sanitizeImage(project?.photo as SanityImageSource, { format: "webp" }).url()}
               alt='Project 1'

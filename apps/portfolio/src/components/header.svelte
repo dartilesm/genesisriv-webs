@@ -81,7 +81,7 @@
       >
         <ul
           class={cn({
-            "font-medium flex flex-row gap-4 p-0 rounded-lg items-center": !isMobile,
+            "font-medium flex flex-row gap-10 p-0 rounded-lg items-center": !isMobile,
             "text-right px-4 flex flex-col gap-6 font-semibold": isMobile,
           })}
         >
