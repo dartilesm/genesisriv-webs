@@ -3,7 +3,6 @@ import ButtonListVertical from "@/components/button-list-vertical.astro";
 import ProfileAlt from "@/components/profile-alt.astro";
 import RootLayout from "@/layouts/root-layout.astro";
 import { loadQuery } from "@/utils/sanity-load-query";
-import Button from "@repo/ui/src/button.astro";
 import Tag from "@repo/ui/src/tag.astro";
 import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 
@@ -37,7 +36,7 @@ const {
   </div>
 
   {/* View All Links Button */}
-  <div class='flex justify-center mt-8'>
+  <!-- <div class='flex justify-center mt-8'>
     <Button
       as='a'
       href={siteData?.additionalLinks?.mainButtonUrl}
@@ -57,6 +56,5 @@ const {
           <path d='M5 12h14M12 5l7 7-7 7'></path>
         </svg>
       </span>
-    </Button>
-  </div>
+    </Button> -->
 </RootLayout>
