@@ -1,6 +1,6 @@
 import { defineMiddleware } from 'astro/middleware';
 
-const HOST_NAME = import.meta.env.VERCEL_PROJECT_PRODUCTION_URL || "genesisriv.me";
+const HOST_NAME = import.meta.env.VERCEL_PROJECT_PRODUCTION_URL || "genesisriv.link";
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const userAgent = context.request.headers.get('User-Agent');

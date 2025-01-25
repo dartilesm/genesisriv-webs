@@ -3,7 +3,6 @@ import "@fontsource/poppins";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 
 import BackgroundAlt from "@/components/background-alt.astro";
-import PlausibleScript from "@/scripts/plausible.astro";
 import type { Metadata } from "@sanity-app/sanity.types";
 
 import { cn } from "@/utils/cn";
@@ -50,9 +49,6 @@ const { url } = Astro;
       type='image/x-icon'
     />
     <link rel='canonical' href={url.href} />
-    <script defer src='/js/pirsch.js' id='pianjs' data-code='BKRPchjbEg0wvHGEPZolz925oZHpl9q7'
-    ></script>
-    <PlausibleScript />
     <ClientRouter />
   </head>
   <body
