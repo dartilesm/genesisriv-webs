@@ -1,10 +1,12 @@
+const path = require("path");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  content: [
+    "./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}",
+    "../../packages/ui/src/**/*.astro",
+  ],
   theme: {
-    fontFamily: {
-      sans: '"Poppins", sans-serif',
-    },
     extend: {},
   },
   plugins: [],

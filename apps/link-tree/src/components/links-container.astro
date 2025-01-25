@@ -1,0 +1,52 @@
+---
+import type { LinkTree } from "@sanity-app/sanity.types";
+import CardList from "./card-list.astro";
+import LinksHeadingAndIcon from "./links-heading-and-icon.astro";
+
+type Props = {
+  data: NonNullable<NonNullable<LinkTree["additionalLinks"]>["links"]>[number];
+};
+
+const { data } = Astro.props;
+---
+
+<div class='flex flex-col items-center gap-6'>
+  {/* Design Elements */}
+  <div class='absolute inset-0 -z-10'>
+    {/* Subtle Grid Background */}
+    <div
+      class='absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+    >
+    </div>
+
+    {/* Gradient Orbs */}
+    <div class='absolute left-[15%] bottom-[20%] w-64 h-64'>
+      <div
+        class='absolute inset-0 bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-10 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+
+    <div class='absolute right-[20%] bottom-[30%] w-48 h-48'>
+      <div
+        class='absolute inset-0 bg-gradient-to-l from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-8 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+  </div>
+  {/* Page Icon & Heading */}
+  <LinksHeadingAndIcon data={data} id='page-heading-container' />
+
+  {/* Link List */}
+  <div class='w-full mt-8' id='link-list'>
+    <CardList items={data.links} />
+  </div>
+</div>

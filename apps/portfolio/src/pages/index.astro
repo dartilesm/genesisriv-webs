@@ -1,21 +1,32 @@
 ---
-import About from "@/components/about.astro";
-import Certificates from "@/components/certificates.astro";
-import Experience from "@/components/experience.astro";
-import Presentation from "@/components/presentation.astro";
+import AboutAlt from "@/components/about-alt.astro";
+import CertificatesAlt from "@/components/certificates-alt.astro";
+import ExperienceAlt from "@/components/experience-alt.astro";
+import PresentationAlt from "@/components/presentation-alt.astro";
 import Projects from "@/components/projects.astro";
+import Testimonials from "@/components/testimonials.astro";
 import RootLayout from "@/layouts/root-layout.astro";
-import type { Metadata, Portfolio } from "@/types/index";
-import { useSanityClient } from "@sanity/astro";
+import { loadQuery } from "@/utils/sanity-load-query";
+import type { Metadata, Portfolio } from "@sanity-app/sanity.types";
 
-const [siteData] = await useSanityClient().fetch<Portfolio[]>(`*[_type == "portfolio"]`);
-const [, siteMetaData] = await useSanityClient().fetch<Metadata[]>(`*[_type == "metadata"]`);
+const {
+  data: [siteData],
+} = await loadQuery<Portfolio[]>({
+  query: `*[_type == "portfolio"]`,
+});
+
+const {
+  data: [, portfolioMetadata],
+} = await loadQuery<Metadata[]>({
+  query: `*[_type == "metadata"]`,
+});
 ---
 
-<RootLayout metadata={siteMetaData} headerData={siteData.header}>
-  <Presentation data={siteData.presentation} />
+<RootLayout metadata={portfolioMetadata} headerData={siteData.header}>
+  <PresentationAlt data={siteData.presentation} />
   <Projects data={siteData.projects} />
-  <Experience data={siteData.experience} />
-  <About data={siteData.about} />
-  <Certificates data={siteData.certificates} />
+  <ExperienceAlt data={siteData.experience} />
+  <AboutAlt data={siteData.about} />
+  <CertificatesAlt data={siteData.certificates} />
+  <Testimonials data={siteData.testimonials} />
 </RootLayout>

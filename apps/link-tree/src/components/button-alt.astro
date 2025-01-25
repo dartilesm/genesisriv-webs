@@ -1,0 +1,41 @@
+---
+interface Props {
+  href?: string;
+  target?: string;
+  as?: "button" | "a";
+  type?: "button" | "submit" | "reset";
+  variant?: "primary" | "secondary" | "icon";
+  class?: string;
+}
+
+const {
+  href,
+  target,
+  as = "button",
+  type = "button",
+  variant = "primary",
+  class: className = "",
+} = Astro.props;
+
+const Element = as;
+
+const variants = {
+  primary:
+    "text-white bg-purple-700 hover:bg-purple-800 focus:ring-blue-300 dark:focus:ring-blue-900",
+  secondary:
+    "text-purple-700 bg-purple-50 hover:bg-purple-100 ring-1 ring-purple-200 focus:ring-purple-300 transition-all duration-300",
+  icon: "hover:text-purple-700 p-0 transition-colors hover:scale-110 transition-transform duration-300",
+};
+---
+
+<Element
+  {...as === "a" ? { href, target } : { type }}
+  class:list={[
+    variant !== "icon" &&
+      "inline-flex items-center justify-center text-sm px-5 py-2.5 font-medium text-center rounded-3xl focus:ring-4 transition-colors",
+    variants[variant],
+    className,
+  ]}
+>
+  <slot />
+</Element>

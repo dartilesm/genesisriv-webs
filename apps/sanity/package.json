@@ -5,6 +5,7 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
+    "predev": "sanity schema extract --workspace development && sanity typegen generate",
     "dev": "sanity dev",
     "start": "sanity start",
     "build": "sanity build",
@@ -15,24 +16,18 @@
     "sanity"
   ],
   "dependencies": {
-    "@sanity-typed/client": "1.0.4",
-    "@sanity-typed/types": "4.0.4",
-    "@sanity/validation": "3.14.4",
-    "@sanity/vision": "3.15.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-is": "18.2.0",
-    "sanity": "3.15.1",
-    "styled-components": "5.3.9"
+    "@sanity/vision": "^3.67.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "sanity": "^3.67.1",
+    "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@sanity/eslint-config-studio": "3.0.0",
-    "@sanity/schema": "3.15.1",
-    "@types/react": "18.0.25",
-    "@types/styled-components": "5.1.26",
-    "eslint": "8.6.0",
-    "prettier": "2.8.8",
-    "typescript": "4.9.5"
+    "@sanity/eslint-config-studio": "^5.0.0",
+    "@types/react": "^18.0.25",
+    "eslint": "^9.9.0",
+    "prettier": "^3.0.2",
+    "typescript": "^5.1.6"
   },
   "prettier": {
     "semi": false,

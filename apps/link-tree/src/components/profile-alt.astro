@@ -1,0 +1,119 @@
+---
+import AtIcon from "@repo/ui/src/assets/icons/at.svg";
+import ExternalIcon from "@repo/ui/src/assets/icons/external-link.svg";
+import InstagramIcon from "@repo/ui/src/assets/icons/instagram.svg";
+import LinkedinIcon from "@repo/ui/src/assets/icons/linkedin2.svg";
+import XIcon from "@repo/ui/src/assets/icons/x.svg";
+import Button from "@repo/ui/src/button.astro";
+import RichText from "@repo/ui/src/rich-text/rich-text.astro";
+import type { LinkTree } from "@sanity-app/sanity.types";
+
+import sanitizeImage from "@sanity-app/utils/sanitize-image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { Image } from "astro:assets";
+
+type Props = {
+  data: LinkTree;
+};
+
+const { data } = Astro.props;
+---
+
+<div class='flex flex-col items-center gap-6'>
+  {/* Design Elements */}
+  <div class='absolute inset-0 -z-10'>
+    {/* Subtle Grid Background */}
+    <div
+      class='absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+    >
+    </div>
+
+    {/* Gradient Orbs */}
+    <div class='absolute left-[15%] bottom-[20%] w-64 h-64'>
+      <div
+        class='absolute inset-0 bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-10 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+
+    <div class='absolute right-[20%] bottom-[30%] w-48 h-48'>
+      <div
+        class='absolute inset-0 bg-gradient-to-l from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-8 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+  </div>
+  {/* Profile Image */}
+  <div class='max-w-md' transition:name='image'>
+    <Image
+      src={sanitizeImage(data.photo as SanityImageSource, { format: "webp" }).url()}
+      alt={data.photo?.alt || "Profile"}
+      class='max-w-48 md:max-w-60 [aspect-ratio:176/215] rounded-full mx-auto'
+      inferSize={true}
+    />
+  </div>
+
+  {/* Profile Info */}
+  <div class='flex flex-col gap-4 text-center'>
+    <div class='flex flex-col gap-1'>
+      <h1 class='text-5xl font-bold text-gray-900' transition:name='heading'>
+        <span
+          class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
+        >
+          {data?.name}
+        </span>
+      </h1>
+      {/* Job Title */}
+      {
+        data?.role && (
+          <div class='relative'>
+            {/* Design Vector - Paint Brush */}
+            <h2 class='text-lg font-medium relative inline-flex flex-col'>
+              <span class='bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-600 text-transparent bg-clip-text uppercase tracking-wider'>
+                {data?.role}
+              </span>
+              <div class='h-px w-full bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0' />
+            </h2>
+          </div>
+        )
+      }
+    </div>
+    <RichText class='font-light [&>strong]:font-bold' value={data.description} />
+  </div>
+
+  {/* Quick Action Buttons */}
+  <div class='flex gap-4 w-full items-center justify-center'>
+    {
+      data.quickLinks?.map((quickLink) => {
+        return (
+          <Button
+            variant={quickLink.isIconButton ? "icon" : "primary"}
+            class='gap-2'
+            as='a'
+            href={quickLink.url}
+            target='_blank'
+          >
+            {quickLink.icon === "linkedin" && <LinkedinIcon class='w-6 h-6' />}
+            {quickLink.icon === "instagram" && <InstagramIcon class='w-6 h-6' />}
+            {quickLink.icon === "x" && <XIcon class='w-6 h-6' />}
+            {quickLink.icon === "website" && <ExternalIcon class='w-6 h-6' />}
+            {quickLink.icon === "email" && <AtIcon class='w-6 h-6' />}
+
+            {!quickLink.isIconButton && quickLink.name}
+            {quickLink.isIconButton && <span class='sr-only'>{quickLink.name}</span>}
+
+            {!quickLink.isIconButton && <ExternalIcon class='w-4 h-4' />}
+          </Button>
+        );
+      })
+    }
+  </div>
+</div>

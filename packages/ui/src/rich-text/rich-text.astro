@@ -1,0 +1,16 @@
+---
+import { PortableText } from "astro-portabletext";
+import type { PortableTextProps } from "astro-portabletext/types";
+import CustomList from "./custom-list.astro";
+
+type Props = PortableTextProps & {
+  class?: string;
+  id?: string;
+};
+
+const { value, class: className = "", id, ...props } = Astro.props;
+---
+
+<div id={id}>
+  <PortableText value={value} {...props} class={className} components={{ list: CustomList }} />
+</div>

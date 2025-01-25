@@ -11,7 +11,7 @@
 </script>
 
 <svelte:window on:scroll={handleScrollChange} bind:innerHeight={clientHeight} />
-<svelte:body :clientHeight={bodyHeight} />
+<svelte:body bind:clientHeight={bodyHeight} />
 
 <div class="fixed w-screen -z-10 top-0" style="height: {bodyHeight}px">
   <div class="relative w-screen h-[100dvh] overflow-hidden" style="height: {clientHeight}px">

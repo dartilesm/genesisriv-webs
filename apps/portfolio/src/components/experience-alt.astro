@@ -1,0 +1,125 @@
+---
+import RichText from "@repo/ui/src/rich-text/rich-text.astro";
+import Tag from "@repo/ui/src/tag.astro";
+import { Portfolio } from "@sanity-app/sanity.types";
+import type { TypedObject } from "astro-portabletext/types";
+import Container from "./ui/container.astro";
+import Section from "./ui/section.astro";
+
+type Props = {
+  data: Portfolio["experience"];
+};
+
+const { data } = Astro.props;
+---
+
+<Section
+  id='experience'
+  heading={data?.title}
+  description={data?.description}
+  class='w-full py-20 md:py-24 lg:py-32 relative [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]'
+>
+  <Container>
+    <div class='grid lg:grid-cols-[1fr_300px] gap-8 items-start'>
+      <ol class='relative border-s-2 border-purple-200 ms-3 space-y-12'>
+        {
+          data?.experienceList?.map((experience) => (
+            <li class='ms-8 group'>
+              <span class='absolute flex items-center justify-center w-6 h-6 bg-purple-100 rounded-full -start-3 ring-8 ring-white dark:ring-gray-900 dark:bg-purple-900 group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors'>
+                <svg
+                  class='w-2.5 h-2.5 text-purple-800 dark:text-purple-300'
+                  aria-hidden='true'
+                  xmlns='http://www.w3.org/2000/svg'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                >
+                  <path d='M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z' />
+                </svg>
+              </span>
+              <div class='p-4 bg-white/50 dark:bg-gray-900/50 rounded-lg backdrop-blur-sm border border-purple-100 dark:border-purple-900 group-hover:border-purple-200 dark:group-hover:border-purple-800 transition-colors'>
+                <div class='flex items-center justify-between mb-1'>
+                  <time class='text-sm font-normal leading-none text-purple-600 dark:text-purple-400'>
+                    {experience.time}
+                  </time>
+                  {experience.current && (
+                    <Tag label='Trabajo actual' variant='purple' size='small' />
+                  )}
+                </div>
+                <h3 class='text-lg font-semibold text-gray-900 dark:text-white mt-2'>
+                  {experience.role}
+                </h3>
+                <p class='mb-4 text-base font-normal text-gray-500 dark:text-gray-400'>
+                  {experience.company}
+                </p>
+                <div class='text-gray-700 dark:text-gray-300 [&>p]:mb-4 [&>p:last-child]:mb-0'>
+                  <RichText value={experience.description as unknown as TypedObject} />
+                </div>
+
+                {/* Skills Section */}
+                {experience.skills?.length > 0 && (
+                  <div class='mt-6 pt-4 border-t border-purple-100 dark:border-purple-900'>
+                    <h4 class='text-sm font-medium text-purple-700 dark:text-purple-300 mb-3'>
+                      Habilidades desarrolladas y/o mejoradas
+                    </h4>
+                    <div class='flex flex-wrap gap-2'>
+                      {experience.skills?.map((skill) => (
+                        <Tag label={skill} variant='purple' size='small' showDot={false} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class='hidden lg:block sticky top-24'>
+        <div
+          class='relative p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-900/50 dark:to-gray-900/20 backdrop-blur-sm border border-purple-100/50 dark:border-purple-800/50'
+        >
+          <div class='relative'>
+            {/* Large quote mark */}
+            <span
+              class='absolute -top-4 -left-2 text-6xl leading-none text-purple-200 dark:text-purple-800/50'
+              >"</span
+            >
+
+            <div class='relative z-10 space-y-4'>
+              <p class='text-base text-gray-600 dark:text-gray-300 leading-relaxed'>
+                "{data?.quote || "The only way to do great work is to love what you do."}"
+              </p>
+
+              <div class='flex items-center gap-3 mt-6'>
+                <div
+                  class='h-px flex-1 bg-gradient-to-r from-purple-200/0 via-purple-200 to-purple-200/0 dark:from-purple-700/0 dark:via-purple-700 dark:to-purple-700/0'
+                >
+                </div>
+                <span class='text-sm font-medium text-purple-600/80 dark:text-purple-300/80'>
+                  {data?.quoteAuthor || "Steve Jobs"}
+                </span>
+                <div
+                  class='h-px flex-1 bg-gradient-to-r from-purple-200/0 via-purple-200 to-purple-200/0 dark:from-purple-700/0 dark:via-purple-700 dark:to-purple-700/0'
+                >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+  <div
+    class='absolute h-full w-full bg-purple-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10
+    -z-10 top-0 left-0'
+  >
+  </div>
+  <div
+    class='absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+  >
+    <div
+      class='absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] bg-fuchsia-400 opacity-20 blur-[100px]'
+    >
+    </div>
+  </div>
+</Section>

@@ -1,0 +1,37 @@
+---
+import ExternalIcon from "@repo/ui/src/assets/icons/external-link.svg";
+import LinkIcon from "@repo/ui/src/assets/icons/link.svg";
+import Button from "@repo/ui/src/button.astro";
+import type { LinkTree } from "@sanity-app/sanity.types";
+
+type AdditionalLink = NonNullable<NonNullable<LinkTree["additionalLinks"]>["links"]>[number];
+type Link = NonNullable<LinkTree["links"]>[number];
+
+type Props = {
+  links: Link[] | AdditionalLink[];
+  target?: "_blank" | "_self" | "_parent" | "_top";
+  transitionName?: string;
+};
+
+const { links, target = "_blank", transitionName } = Astro.props;
+---
+
+<div class='flex flex-col gap-2 w-full' transition:name={transitionName}>
+  {
+    links?.map((link) => (
+      <Button
+        as='a'
+        href={(link as Link).url || `/l/${(link as AdditionalLink).slug}`}
+        aria-label={link?.name}
+        target={target}
+        variant='tertiary'
+      >
+        <div class='flex items-center justify-between w-full'>
+          <LinkIcon class='w-5 h-5' />
+          <span class='text-base font-medium'>{link?.name}</span>
+          <ExternalIcon class='w-3 h-3 opacity-70' />
+        </div>
+      </Button>
+    ))
+  }
+</div>

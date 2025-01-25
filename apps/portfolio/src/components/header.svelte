@@ -1,15 +1,11 @@
 <script lang="ts">
-  import type { Portfolio } from "@/types";
   import { cn } from "@/utils/cn";
+  import type { Portfolio } from "@sanity-app/sanity.types";
   import sanitizeImage from "@sanity-app/utils/sanitize-image";
-  import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
-  import { Icon } from "svelte-icons-pack";
-  import { FiFileText, FiLinkedin } from "svelte-icons-pack/fi";
-  import { SiInstagram, SiX } from "svelte-icons-pack/si";
 
   export let data = {} as Portfolio["header"];
 
-  let logoUrl: string = sanitizeImage(data?.logo as SanityImageSource, { format: "webp" }).url();
+  let logoUrl: string = sanitizeImage(data?.logo, { format: "webp" }).url();
   let isMenuOpen = false;
   let hasScrolledBeyondHeaderHeight = false;
   let headerHegiht = 0;
@@ -30,29 +26,18 @@
     isMenuOpen = !isMenuOpen;
     if (isMobile) window.document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
   }
-
-  function getIcon(icon: string) {
-    const icons = {
-      X: SiX,
-      Instagram: SiInstagram,
-      Linkedin: FiLinkedin,
-      CV: FiFileText,
-    };
-
-    return icons[icon as keyof typeof icons];
-  }
 </script>
 
 <svelte:window on:scroll={handleScroll} on:resize={handleResize} />
 <header
-  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-20 sticky top-0", {
+  class={cn("px-4 md:px-6 mx-auto flex flex-col gap-12 z-30 sticky top-0", {
     "bg-white [box-shadow:_0_0px_0px_1px_rgba(0,0,0,0.1)]":
       hasScrolledBeyondHeaderHeight || isMenuOpen,
     "transition-colors duration-300": hasScrolledBeyondHeaderHeight,
   })}
   bind:clientHeight={headerHegiht}
 >
-  <nav class="bg-transparent py-4">
+  <nav class="bg-transparent py-4 container mx-auto">
     <div class="max-w-5xl flex flex-wrap items-center justify-between mx-auto">
       <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
         <img src={logoUrl} class="h-8" alt={data?.logo?.alt} />
@@ -96,7 +81,7 @@
       >
         <ul
           class={cn({
-            "font-medium flex flex-row gap-4 p-0 rounded-lg items-center": !isMobile,
+            "font-medium flex flex-row gap-10 p-0 rounded-lg items-center": !isMobile,
             "text-right px-4 flex flex-col gap-6 font-semibold": isMobile,
           })}
         >
@@ -114,22 +99,6 @@
               </a>
             </li>
           {/each}
-        </ul>
-        <ul
-          class={cn({
-            "inline-flex gap-4": !isMobile,
-            "flex flex-col gap-6 items-end px-4 py-8": isMobile,
-          })}
-        >
-          {#if data?.socialLinks}
-            {#each data?.socialLinks as socialLink}
-              <li class="flex items-center">
-                <a href={socialLink.url} class="hover:text-purple-700 p-0" target="_blank">
-                  <Icon src={getIcon(socialLink.icon)} size={20} />
-                </a>
-              </li>
-            {/each}
-          {/if}
         </ul>
       </div>
     </div>

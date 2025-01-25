@@ -1,0 +1,157 @@
+---
+import Button from "@repo/ui/src/button.astro";
+import Tag from "@repo/ui/src/tag.astro";
+import { Portfolio } from "@sanity-app/sanity.types";
+import sanitizeImage from "@sanity-app/utils/sanitize-image";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { Icon } from "astro-icon/components";
+import { PortableText } from "astro-portabletext";
+import { Image } from "astro:assets";
+import Container from "./ui/container.astro";
+import Section from "./ui/section.astro";
+
+type Props = {
+  data: Portfolio["presentation"];
+};
+
+const { data } = Astro.props;
+
+function getIcon(icon: string) {
+  const icons = {
+    X: "x",
+    Instagram: "instagram",
+    Linkedin: "linkedin2",
+    Mail: "at",
+  };
+
+  return icons[icon as keyof typeof icons];
+}
+---
+
+<Section id='presentation-alt' class='relative overflow-hidden min-h-[90vh] flex items-center'>
+  {/* Design Elements */}
+  <div class='absolute inset-0 -z-10'>
+    {/* Subtle Grid Background */}
+    <div
+      class='absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]'
+    >
+    </div>
+
+    {/* Gradient Orbs */}
+    <div class='absolute left-[15%] bottom-[20%] w-64 h-64'>
+      <div
+        class='absolute inset-0 bg-gradient-to-r from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-10 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+
+    <div class='absolute right-[20%] bottom-[30%] w-48 h-48'>
+      <div
+        class='absolute inset-0 bg-gradient-to-l from-purple-500/20 to-fuchsia-500/20 dark:from-purple-500/10 dark:to-fuchsia-500/10 rounded-full blur-3xl'
+      >
+      </div>
+      <div
+        class='absolute inset-8 bg-gradient-to-br from-purple-400/20 to-transparent dark:from-purple-400/10 rounded-full blur-2xl'
+      >
+      </div>
+    </div>
+  </div>
+
+  <Container
+    class='flex flex-row gap-10 justify-between max-md:flex-col-reverse max-md:items-center'
+  >
+    {/* Content */}
+    <div class='relative'>
+      {
+        data?.currentStatus && (
+          <Tag class='mb-8' label={data?.currentStatus} variant='purple' outlined />
+        )
+      }
+
+      {/* Title and Description */}
+      <div class='flex flex-col'>
+        {/* Main Title */}
+        <div class='relative mb-2'>
+          <h1 class='text-4xl md:text-5xl lg:text-6xl font-bold'>
+            <span
+              class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
+            >
+              {data?.title}
+            </span>
+          </h1>
+        </div>
+
+        {/* Job Title */}
+        <div class='relative mb-4'>
+          {/* Design Vector - Paint Brush */}
+          <h2 class='text-lg font-medium relative inline-flex flex-col'>
+            <span
+              class='bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-600 text-transparent bg-clip-text uppercase tracking-wider'
+            >
+              {data?.role}
+            </span>
+            <div
+              class='h-px w-full bg-gradient-to-r from-purple-600/0 via-purple-600/50 to-purple-600/0'
+            >
+            </div>
+          </h2>
+        </div>
+
+        <PortableText
+          class='text-lg text-gray-600 dark:text-gray-300 max-w-lg relative mb-8'
+          value={data?.description}
+        />
+      </div>
+
+      {/* Social Links */}
+      <div class='flex flex-wrap gap-4 items-center'>
+        {
+          data?.socialLinks?.map((socialLink) => (
+            <Button as='a' href={socialLink.url} variant='icon' target='_blank' class='group'>
+              <Icon name={getIcon(socialLink.icon)} size={20} />
+            </Button>
+          ))
+        }
+        {
+          data?.cta && (
+            <Button as='a' href={data?.cta?.url} target='_blank' class='group'>
+              {data.cta?.label}
+              <svg
+                class='w-4 h-4 ms-2 group-hover:translate-x-1 transition-transform'
+                viewBox='0 0 24 24'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <path
+                  d='M4 12H20M20 12L14 6M20 12L14 18'
+                  stroke='currentColor'
+                  stroke-width='2'
+                  stroke-linecap='round'
+                  stroke-linejoin='round'
+                />
+              </svg>
+            </Button>
+          )
+        }
+      </div>
+    </div>
+
+    {/* Image */}
+    {
+      data?.profileImg && (
+        <div class='max-w-md flex items-center'>
+          <Image
+            src={sanitizeImage(data?.profileImg as SanityImageSource, { format: "webp" }).url()}
+            alt={data?.profileImg.alt}
+            class='max-w-60 [aspect-ratio:176/215] rounded-full mx-auto'
+            inferSize={true}
+          />
+        </div>
+      )
+    }
+  </Container>
+</Section>

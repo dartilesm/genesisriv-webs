@@ -1,0 +1,76 @@
+---
+import BookIcon from "@repo/ui/src/assets/icons/bulk/book.svg";
+import LinkIcon from "@repo/ui/src/assets/icons/bulk/link.svg";
+import ResourceIcon from "@repo/ui/src/assets/icons/bulk/resource.svg";
+import RichText from "@repo/ui/src/rich-text/rich-text.astro";
+import type { LinkTree } from "@sanity-app/sanity.types";
+type Props = {
+  data: NonNullable<NonNullable<LinkTree["additionalLinks"]>["links"]>[number];
+  isInNav?: boolean;
+  id?: string;
+  className?: string;
+};
+
+const { data, isInNav = false, id, className } = Astro.props;
+
+const iconMap = {
+  resources: ResourceIcon,
+  link: LinkIcon,
+  book: BookIcon,
+};
+
+const Icon = iconMap[data?.icon as keyof typeof iconMap];
+---
+
+<div
+  class:list={[
+    "flex gap-2 w-full",
+    {
+      "flex-col justify-center items-center": !isInNav,
+      "flex-row justify-start items-center": isInNav,
+    },
+    className,
+  ]}
+  id={id}
+>
+  <div
+    class:list={[
+      {
+        "w-[100px] h-[100px]": !isInNav,
+        "w-6 h-6": isInNav,
+      },
+    ]}
+  >
+    <Icon class='text-purple-800 w-full h-full' />
+  </div>
+  <div class='flex flex-col gap-1 w-full'>
+    <h1
+      class:list={[
+        "font-bold text-gray-900 ",
+        {
+          "text-5xl text-center": !isInNav,
+          "text-xl text-left": isInNav,
+        },
+      ]}
+    >
+      <span
+        class='bg-gradient-to-r from-purple-700 via-purple-600 to-purple-500 dark:from-purple-300 dark:via-purple-400 dark:to-purple-500 text-transparent bg-clip-text'
+      >
+        {data?.name}
+      </span>
+    </h1>
+  </div>
+
+  {/* Page Info */}
+  {
+    !isInNav && data?.description && (
+      <div class='flex flex-col gap-4 text-center'>
+        <RichText
+          class='font-light [&>strong]:font-bold'
+          value={data?.description}
+          id='page-description'
+        />
+      </div>
+    )
+  }
+</div>

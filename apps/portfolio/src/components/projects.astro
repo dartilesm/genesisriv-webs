@@ -1,10 +1,13 @@
 ---
-import { Portfolio } from "@/types";
+import ExternalLink from "@/assets/icons/external-link.svg";
+import Button from "@repo/ui/src/button.astro";
+import Tag from "@repo/ui/src/tag.astro";
+import { Portfolio } from "@sanity-app/sanity.types";
 import sanitizeImage from "@sanity-app/utils/sanitize-image";
 import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { PortableText } from "astro-portabletext";
 import Container from "./ui/container.astro";
-import Subheading from "./ui/subheading.astro";
+import Section from "./ui/section.astro";
 
 type Props = {
   data: Portfolio["projects"];
@@ -13,83 +16,59 @@ type Props = {
 const { data } = Astro.props;
 ---
 
-<Container id='portfolio'>
-  <div
-    class='absolute bg-gradient-to-b from-violet-100 to-transparent dark:from-purple-900 -z-20 h-full w-full top-0 left-0'
-  >
-  </div>
-  <div class='container px-4 md:px-6 mx-auto flex flex-col gap-12'>
-    <div class='flex flex-col items-center justify-center text-center'>
-      <div class='space-y-2'>
-        {data?.title && <Subheading title={data?.title} description={data?.description} />}
-      </div>
-    </div>
-    <div class='mx-auto max-w-5xl flex flex-col gap-10'>
-      {
-        data?.projectsList?.map((project) => {
-          return (
-            <div class='flex gap-10 flex-col items-center md:items-start md:flex-row'>
-              <img
-                src={sanitizeImage(project?.photo as SanityImageSource, { format: "webp" }).url()}
-                alt='Project 1'
-                class='w-full md:w-80 [aspect-ratio:16/9] object-cover rounded-lg'
-              />
-              <div>
-                <div class='flex flex-col flex-1 gap-2'>
-                  <div class='flex flex-row gap-2 items-center'>
-                    <h4 class='text-2xl font-semibold dark:text-white'>
-                      {project.projectName}
-                      <span class='text-gray-500 dark:text-gray-400'>{"-"}</span>
-                      <span class='font-semibold text-gray-500 dark:text-gray-400'>
-                        {project.company}
-                      </span>
-                    </h4>
-                  </div>
-                  <div class='flex flex-row gap-2'>
-                    {project.technologiesOrMethodologies?.map((tech) => {
-                      return (
-                        <span class='bg-violet-100 text-violet-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-violet-900 dark:text-violet-300'>
-                          {tech}
-                        </span>
-                      );
-                    })}
-                  </div>
-
-                  {project.description && (
-                    <PortableText
-                      class='mb-3 text-gray-800 dark:text-gray-300'
-                      value={project.description}
-                    />
-                  )}
+<Section id='portfolio' heading={data?.title} description={data?.description}>
+  <Container class='flex flex-col gap-14'>
+    {
+      data?.projectsList?.map((project) => {
+        return (
+          <div class='flex gap-12 flex-col items-center md:items-start md:flex-row'>
+            <img
+              src={sanitizeImage(project?.photo as SanityImageSource, { format: "webp" }).url()}
+              alt='Project 1'
+              class='w-full md:w-80 [aspect-ratio:16/9] object-cover rounded-lg min-h-[180px]'
+            />
+            <div>
+              <div class='flex flex-col flex-1 gap-2'>
+                <div class='flex flex-row gap-2 items-center'>
+                  <h4 class='text-2xl font-semibold dark:text-white'>
+                    {project.projectName}
+                    <div class='inline-flex gap-1 text-violet-500/90 dark:text-gray-400 font-normal'>
+                      <span>{"-"}</span>
+                      <span>{project.company}</span>
+                    </div>
+                  </h4>
                 </div>
-                {project?.cta && (
-                  <a
-                    href={project.cta.url}
-                    class='font-medium text-purple-600 dark:text-purple-500 hover:underline inline-flex flex-row gap-2 items-center'
-                  >
-                    {project.cta.label}
-                    <svg
-                      class='w-3 h-3 ms-2.5 rtl:rotate-[270deg]'
-                      aria-hidden='true'
-                      xmlns='http://www.w3.org/2000/svg'
-                      fill='none'
-                      viewBox='0 0 18 18'
-                    >
-                      <path
-                        stroke='currentColor'
-                        stroke-linecap='round'
-                        stroke-linejoin='round'
-                        stroke-width='2'
-                        d='M15 11v4.833A1.166 1.166 0 0 1 13.833 17H2.167A1.167 1.167 0 0 1 1 15.833V4.167A1.166 1.166 0 0 1 2.167 3h4.618m4.447-2H17v5.768M9.111 8.889l7.778-7.778'
-                      />
-                    </svg>
-                  </a>
+                <div class='flex flex-row gap-2'>
+                  {project.technologiesOrMethodologies?.map((tech) => {
+                    return (
+                      <Tag label={tech} variant='purple' showDot={false} outlined size='small' />
+                    );
+                  })}
+                </div>
+
+                {project.description && (
+                  <PortableText
+                    class='mb-3 text-gray-800 dark:text-gray-300'
+                    value={project.description}
+                  />
                 )}
               </div>
+              {project?.cta && (
+                <Button
+                  as='a'
+                  href={project.cta.url}
+                  target='_blank'
+                  variant='secondary'
+                  class='group mt-2 text-xs py-1.5 px-3'
+                >
+                  {project.cta.label}
+                  <ExternalLink class='group-hover:translate-x-1 transition-transform w-2.5 h-2.5 ms-2 rtl:rotate-180' />
+                </Button>
+              )}
             </div>
-          );
-        })
-      }
-    </div>
-  </div>
-</Container>
+          </div>
+        );
+      })
+    }
+  </Container>
+</Section>

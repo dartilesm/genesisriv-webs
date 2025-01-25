@@ -4,8 +4,7 @@ import sanitizeImage from "@sanity-app/utils/sanitize-image";
 
 import Background from "@/components/background.svelte";
 import Header from "@/components/header.svelte";
-import PlausibleScript from "@/scripts/plausible.astro";
-import { Metadata, Portfolio } from "@/types";
+import { Metadata, Portfolio } from "@sanity-app/sanity.types";
 
 type Props = {
   metadata: Metadata;
@@ -48,8 +47,6 @@ const { url } = Astro;
       type='image/x-icon'
     />
     <link rel='canonical' href={url.href} />
-
-    <PlausibleScript />
   </head>
   <body class='bg-white dark:bg-gray-900 overflow-x-hidden'>
     <Header data={headerData} client:only='svelte' />

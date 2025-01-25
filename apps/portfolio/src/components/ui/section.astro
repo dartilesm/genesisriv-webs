@@ -1,0 +1,21 @@
+---
+import { cn } from "@/utils/cn";
+import type { HTMLAttributes } from "astro/types";
+import Subheading from "./subheading.astro";
+
+type Props = HTMLAttributes<"section"> & {
+  heading?: string;
+  description?: string;
+};
+
+const { class: className, heading, description, ...attrs } = Astro.props;
+---
+
+<section {...attrs} class={cn("w-full py-20 md:py-24 lg:py-32 relative px-4 md:px-6", className)}>
+  <div class='flex flex-col items-center justify-center text-center'>
+    <div class='space-y-2 mb-10'>
+      {heading && <Subheading title={heading} description={description} />}
+    </div>
+  </div>
+  <slot />
+</section>

@@ -1,33 +1,62 @@
 ---
-import ButtonList from "@/components/button-list.astro";
-import HeadingInfo from "@/components/heading-info.astro";
-import IconList from "@/components/icon-list.astro";
-import ProfileImage from "@/components/profile-image.astro";
+import ButtonListVertical from "@/components/button-list-vertical.astro";
+import ProfileAlt from "@/components/profile-alt.astro";
 import RootLayout from "@/layouts/root-layout.astro";
-import type { LinkTree, Metadata } from "@/types/index";
-import sanitizeImage from "@sanity-app/utils/sanitize-image";
-import { useSanityClient } from "@sanity/astro";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { loadQuery } from "@/utils/sanity-load-query";
+import Button from "@repo/ui/src/button.astro";
+import Tag from "@repo/ui/src/tag.astro";
+import type { LinkTree, Metadata } from "@sanity-app/sanity.types";
 
-const [siteData] = await useSanityClient().fetch<LinkTree[]>(`*[_type == "linkTree"]`);
-const [siteMetaData] = await useSanityClient().fetch<Metadata[]>(`*[_type == "metadata"]`);
+const {
+  data: [siteData],
+} = await loadQuery<LinkTree[]>({
+  query: `*[_type == "linkTree"]`,
+});
+
+const {
+  data: [linkTreeMetadata],
+} = await loadQuery<Metadata[]>({
+  query: `*[_type == "metadata"]`,
+});
 ---
 
-<RootLayout
-  className='flex justify-center items-center flex-col gap-6 text-[#222730] dark:text-gray-200'
-  metadata={siteMetaData}
->
-  <div class='flex flex-col gap-8 justify-center items-center'>
-    <ProfileImage
-      src={sanitizeImage(siteData?.photo as SanityImageSource, { format: "webp" }).url()}
-      alt={siteData?.photo?.alt || "profile image"}
-    />
-    <HeadingInfo name={siteData.name} role={siteData.role} description={siteData.description} />
+<RootLayout className='space-y-8 py-12' metadata={linkTreeMetadata}>
+  {
+    siteData?.currentStatus && (
+      <div class='flex flex-col gap-2'>
+        <Tag label={siteData?.currentStatus} class='self-center' />
+      </div>
+    )
+  }
+
+  <ProfileAlt data={siteData} />
+
+  {/* Main Links */}
+  <div class='space-y-8'>
+    <ButtonListVertical links={siteData?.links} transitionName='button-list' />
   </div>
-  <div class='flex flex-col gap-12 w-full text-center'>
-    <ButtonList links={siteData?.links} />
-    <div class='flex flex-col gap-4'>
-      <IconList title={siteData.iconLinks?.title || ""} links={siteData.iconLinks?.links} />
-    </div>
+
+  {/* View All Links Button */}
+  <div class='flex justify-center mt-8'>
+    <Button
+      as='a'
+      href={siteData?.additionalLinks?.mainButtonUrl}
+      variant='ghost'
+      class='group text-sm'
+    >
+      <span class='flex items-center gap-2'>
+        {siteData?.additionalLinks?.mainButtonLabel}
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          class='h-4 w-4 transition-transform group-hover:translate-x-1'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          stroke-width='2'
+        >
+          <path d='M5 12h14M12 5l7 7-7 7'></path>
+        </svg>
+      </span>
+    </Button>
   </div>
 </RootLayout>

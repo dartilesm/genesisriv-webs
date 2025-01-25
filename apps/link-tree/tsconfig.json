@@ -1,15 +1,23 @@
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "jsxImportSource": "react",
+    "verbatimModuleSyntax": true,
     "baseUrl": ".",
-    "isolatedModules": true,
-    "verbatimModuleSyntax": false,
     "paths": {
-      "@/*": ["src/*"],
-      "@sanity-app/*": ["../../apps/sanity/*"]
+      "@repo/ui/*": [
+        "../../packages/ui/*"
+      ],
+      "@/*": [
+        "src/*"
+      ],
+      "@sanity-app/*": [
+        "../../apps/sanity/*"
+      ]
     },
-    "allowSyntheticDefaultImports": true
+    "types": [
+      "astro/client"
+    ]
   }
 }
