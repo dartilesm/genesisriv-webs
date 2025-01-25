@@ -30,11 +30,17 @@ export const onRequest = defineMiddleware(async (context, next) => {
       tags: {}
     };
 
-    console.log({ context, data })
+    console.log({ request: data })
 
     client.hit(data)
       .then(response => console.log({ response }))
-      .catch(error => console.error({ error }));
+      .catch(error => console.error({
+        message: error?.message,
+        status: error?.status,
+        statusText: error?.statusText,
+        url: error?.url,
+        data: JSON.stringify(error?.data || {})
+      }));
   }
 
   return next();
