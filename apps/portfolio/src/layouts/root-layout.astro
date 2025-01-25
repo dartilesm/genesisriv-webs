@@ -4,7 +4,6 @@ import sanitizeImage from "@sanity-app/utils/sanitize-image";
 
 import Background from "@/components/background.svelte";
 import Header from "@/components/header.svelte";
-import PlausibleScript from "@/scripts/plausible.astro";
 import { Metadata, Portfolio } from "@sanity-app/sanity.types";
 
 type Props = {
@@ -48,10 +47,6 @@ const { url } = Astro;
       type='image/x-icon'
     />
     <link rel='canonical' href={url.href} />
-
-    <PlausibleScript />
-    <script defer src='/js/pirsch.js' id='pianjs' data-code='EiwvvUsVl59RMHGc72YaxvCRhU4HNVZN'
-    ></script>
   </head>
   <body class='bg-white dark:bg-gray-900 overflow-x-hidden'>
     <Header data={headerData} client:only='svelte' />
