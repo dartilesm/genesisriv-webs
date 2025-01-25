@@ -1,13 +1,6 @@
 import { defineMiddleware } from 'astro/middleware';
-import { Pirsch } from 'pirsch-sdk';
 
 const HOST_NAME = import.meta.env.VERCEL_PROJECT_PRODUCTION_URL || "genesisriv.me";
-
-const client = new Pirsch({
-  hostname: HOST_NAME,
-  clientId: import.meta.env.PIRSCH_CLIENT_ID,
-  clientSecret: import.meta.env.PIRSCH_CLIENT_SECRET
-});
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const userAgent = context.request.headers.get('User-Agent');
@@ -30,17 +23,19 @@ export const onRequest = defineMiddleware(async (context, next) => {
       tags: {}
     };
 
-    console.log({ request: data })
+    const response = await fetch(`${import.meta.env.PIRSCH_API_URL}/hit`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${import.meta.env.PIRSCH_ACCESS_KEY}`
+      },
+      body: JSON.stringify(data)
+    });
 
-    client.hit(data)
-      .then(response => console.log({ response }))
-      .catch(error => console.error({
-        message: error?.message,
-        status: error?.status,
-        statusText: error?.statusText,
-        url: error?.url,
-        data: JSON.stringify(error?.data || {})
-      }));
+    console.log({
+      data,
+      response,
+      HOST_NAME
+    });
   }
 
   return next();
